@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_editProducts" value="name:idproducto;datatype:int,name:tituloProducto;datatype:string,name:NombreProducto;datatype:string,name:PrecioProducto;datatype:real,name:ReferenciaProducto;datatype:string,name:DescripcionProducto;datatype:string,name:imagen;datatype:string,name:Activo;datatype:int,name:cotizacion_idcotizacion;datatype:int" />
+	<infoitem key="UD_editProduct" value="name:idproducto;datatype:int,name:tituloProducto;datatype:string,name:NombreProducto;datatype:string,name:PrecioProducto;datatype:real,name:ReferenciaProducto;datatype:string,name:DescripcionProducto;datatype:string,name:imagen;datatype:string,name:Activo;datatype:int,name:cotizacion_idcotizacion;datatype:int" />
+</info>
