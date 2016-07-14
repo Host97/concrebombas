@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_editEmp" value="name:IDempleado;datatype:int,name:Nombre;datatype:string,name:Apellido;datatype:string,name:Identificacion;datatype:string,name:NumeroIdentificacion;datatype:int,name:Telefono;datatype:int,name:Movil;datatype:int,name:Email;datatype:string,name:Cargo;datatype:string,name:Password;datatype:string,name:usuarios_Email;datatype:string" />
+</info>
