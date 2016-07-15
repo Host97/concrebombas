@@ -1,0 +1,230 @@
+@charset "utf-8";
+/* `Tabla amarillo negro para cotizaciones */
+body{
+	background:#181A1C;
+	}
+table {
+	width: 650px;
+	border:1px solid #000000;
+	border-spacing: 0px; }
+
+table a, table, tbody, tfoot, tr, th, td {
+	font-family: 'Roboto', sans-serif;
+}
+
+table caption {
+	font-size: 1em;
+	text-align: left;
+	text-indent: 100px;
+	height: 40px;
+	color: #000000;
+	border:1px solid #FFFFFF; }
+
+thead th {
+	background-color: #151513;
+	height: 21px;
+	color: #FFFFFF;
+	font-size: 0.8em;
+	font-family: Arial;
+	font-weight: bold;
+	padding: 0px 7px;
+	margin: 20px 0px 0px;
+	text-align: left; }
+
+tbody tr {	background: #FECE1A; }
+
+tbody tr.odd {	background: #f0f0f0; }
+
+tbody th {
+	background: url(../images/Table_Header_Background.jpg) left repeat-x ;	
+	background-position: 5px;
+	padding-left: 40px !important; }
+
+tbody tr.odd th {
+	background-position: 5px;
+	padding-left: 40px !important; }
+
+tbody th{
+	
+	font-size: 1em;
+	line-height: 1.4em;
+	font-family: Arial, Helvetica, sans-serif;
+	color:#FFFFFF;
+	text-transform: capitalize;
+	padding: 10px 7px;
+	/*border-bottom: #FACE1A;*/
+	border:1px solid #FFF ;
+	text-align: left;
+	} 
+
+tbody td {
+	font-size: 1em;
+	line-height: 1.4em;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
+	padding: 10px 7px;
+	/*border-bottom: #FACE1A;*/
+	border:1px solid #FFF ;
+	text-align: left;
+}
+
+tbody a {
+	color: #000000;
+	font-weight: bold;
+	text-decoration: none; }
+
+/*tbody a:hover {
+	color: #FECE1A;
+	text-decoration: underline; }*/
+
+/*tbody tr:hover th {
+	background: #FECE1A url(images/arrow_red.gif) left center no-repeat;
+	background-position: 5px;
+	color: #000000; }*/
+
+tbody tr.odd:hover th {
+	background: #000000 url;
+	background-position: 5px;
+	color: #ffffff; }
+/*hover desactivado, borre los comentarios para activarlos*/
+/*tbody tr:hover th a, tr.odd:hover th a	{
+		 color: #000000; }*/
+
+/*tbody tr:hover td, tr:hover td a, tr.odd:hover td, tr.odd:hover td a {
+	background: #000000;
+	color: #FECE1A;	 }*/
+
+tbody tr.odd:hover td, tr.odd:hover td a{
+	background: #000000;
+	color: #ffffff;	 }
+
+tfoot th, tfoot td {
+	background: #ffffff;
+	font-size: 0.8em;
+	color: #ffffff;
+	height: 21px;
+	}
+/*acordion style*/
+
+.accordion {
+	-webkit-box-shadow: 0px 75px 35px -55px rgba(10, 30, 65, 0.6);
+	-moz-box-shadow: 0px 75px 35px -55px rgba(10, 30, 65, 0.6);
+	box-shadow: 0px 75px 35px -55px rgba(10, 30, 65, 0.6);
+	font-family: 'Roboto', sans-serif;
+	border-color: #CCCCCC;
+	border-style: solid;
+	border-width: 0px;
+	border-radius: 8px;
+	margin: 0 auto;
+	height: 480px;
+	width: 1148px;
+}
+
+.accordion > ul > li,
+.accordion-title,
+.accordion-content,
+.accordion-separator {
+    float: left;
+}
+
+.accordion > ul > li {
+    background-color: #1f1f1f;
+    margin-right: -960px;
+    margin-bottom: -0px;
+}
+
+.accordion-select:checked ~ .accordion-separator {
+    margin-right: 960px;
+    margin-bottom: 0px;
+}
+
+.accordion-title,
+.accordion-select  {
+    background-color: #fece1a;
+    color: #140011;
+    width: 45px;
+    height: 480px;
+    font-size: 26px;
+}
+
+.accordion-title span {
+    margin-bottom: 23px; 
+    margin-left: 20px;
+}
+
+.accordion-select:hover ~ .accordion-title,
+.accordion-select:checked ~ .accordion-title {
+    background-color: #fece1a;
+}
+
+.accordion-title span  {	
+    transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-writing-mode: lr-bt;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    margin-left: 0px;
+    line-height: 45px;
+}
+
+.accordion-content {
+	background-color: #181A1C;
+	color: #f5f2f0;
+	font-size:17px;
+	height: 404px;
+	width: 884px;
+	padding: 38px;
+}
+
+.accordion-title,
+.accordion-select:checked ~ .accordion-content {
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.accordion {
+    overflow: hidden;
+}
+
+.accordion > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 101%;
+}
+
+.accordion > ul > li,
+.accordion-title {
+    position: relative;
+}
+
+.accordion-select {
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+.accordion-title span {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.accordion-content {
+    position: relative;
+    overflow: auto;
+}
+
+.accordion-separator {
+    transition: margin 0.3s ease 0.1s;
+    -o-transition: margin 0.3s ease 0.1s;
+    -moz-transition: margin 0.3s ease 0.1s;
+    -webkit-transition: margin 0.3s ease 0.1s;
+}

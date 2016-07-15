@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+body{
+	background:#333;
+	color:#CDCDCD;
+	}
+h1{
+	text-align:center;
+	color:#FC0;	
+	}
+/*button{
+	width:275px;
+	height:280px;
+	border:#FFF solid 1px;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	}*/
+.container{
+	/*background-image:url(Imagenes/serviceYellow.jpg);*/
+	width:275px;
+	height:280px;
+	border:#FFF solid 1px;
+	margin:auto;
+	display:block;
+	/*-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+			*/}
+.container:hover, .container:active{
+	background-image:url(Imagenes/serviceBlack.jpg)
+	width:275px;
+	height:280px;
+	border:#FFF solid 1px;
+	margin:auto;
+	display:block;
+	/*-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;*/
+	}
+	
+	/*BOTÓN*/
+ .button,  .button:visited, .button:focus {
+    display:inline-block;
+	width:275px;
+	height:280px;
+    border:1px solid #181A1C;
+    color:#181A1C;
+    background-color:FECE1A;
+    padding:15px 30px;
+    font-size:17px;
+    line-height:auto;
+}
+.button:hover, .button:active{
+    background-color:#181A1C;
+    color:#fff;
+}
+.button-products, .button-products:visited, .button-products:focus {
+    border: solid 2px #FFFFFF;
+	background-image: url(../Imagenes/btnwht.png);
+    background-color:#FECE1A;
+    color:#181A1C;
+	width:337px;
+	height:484px;
+}
+.button-products:hover, .button-products:active {
+    background-color:#181A1C;
+    color:#FECE1A;
+}
+.button-service, .button-service:visited, .button-service:focus {
+     border: solid 2px #FFFFFF;
+	background-image: url(../Imagenes/btnwht2.png);
+    background-color:#FECE1A;
+    color:#181A1C;
+	width:337px;
+	height:484px;
+}
+.button-service:hover, .button-service:active {
+    background-color:#181A1C;
+    color:#FECE1A;
+}
+
+
+
+
+
+
+

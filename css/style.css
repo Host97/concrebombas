@@ -28,11 +28,11 @@
 1. General
 **********************************************************************/
  body {
-    font-family:'Roboto', sans-serif;
-    color: #FFF;
-    line-height:1.2em;
-    font-size:17px;
-    line-height:20px;
+	font-family: 'Roboto', sans-serif;
+	color: #FFF;
+	line-height: 1.2em;
+	font-size: 24px;
+	line-height: 20px;
 }
 a {
     color:#181A1C;
@@ -72,8 +72,8 @@ p {
     box-shadow: none;
 }
 .navbar .brand img {
-    width:120px;
-    height:40px;
+	width: 180px;
+	height: 60px;
 }
 .navbar .nav > li > a {
     text-transform:uppercase;
@@ -90,10 +90,10 @@ p {
     transition: border-color 1s ease;
 }
 .navbar .nav > li:hover> a, .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
-    border: 1px solid #FECE1A;
-    color: #fff;
-    background-color: #181A1C;
-    transition: border-color 1s ease;
+	/* [disabled]border: 1px solid #FECE1A; */
+	color: #fff;
+	background-color: #181A1C;
+	transition: border-color 1s ease;
 }
 .nav-pills {
     margin-bottom: 30px;
@@ -140,11 +140,11 @@ p {
     margin:0px;
 }
 .large-text {
-    line-height:1.2em;
-    font-size: 30px;
-    color: #181A1C;
-    padding:20px;
-    margin-bottom:20px;
+	line-height: 1.2em;
+	font-size: 30px;
+	color: #181A1C;
+	/* [disabled]padding:20px; */
+	margin-bottom: 20px;
 }
 .highlighted-box h1, .highlighted-box p {
     color: #181A1C !important;
@@ -235,20 +235,100 @@ p {
     background-color:#FECE1A;
     color:#181A1C;
 }
+/*button */
+ .button,  .button:visited, .button:focus {
+    display:inline-block;
+    border:1px solid #181A1C;
+    color:#181A1C;
+    background-color:transparent;
+    padding:15px 30px;
+    font-size:17px;
+    line-height:auto;
+}
+.button:hover, .button:active{
+    background-color:#181A1C;
+    color:#fff;
+}
+.button-sp, .button-sp:visited, .button-sp:focus {
+    border:none;
+    background-color:#FECE1A;
+    color:#181A1C;
+}
+.button-sp:hover, .button-sp:active {
+    background-color:#181A1C;
+    color:#FECE1A;
+}
+.button-ps, .button-ps:visited, .button-ps:focus {
+    border:none;
+    background-color:#181A1C;
+    color:#FECE1A;
+}
+.button-ps:hover, .button-ps:active {
+    background-color:#FECE1A;
+    color:#181A1C;
+}
+/*new buttons
+ .button,  .button:visited, .button:focus {
+    display:inline-block;
+	width:275px;
+	height:280px;
+    border:1px solid #181A1C;
+    color:#181A1C;
+    background-color:FECE1A;
+    padding:15px 30px;
+    font-size:17px;
+    line-height:auto;
+}*/
+.button:hover, .button:active{
+    background-color:#181A1C;
+    color:#fff;
+}
+.button-products, .button-products:visited, .button-products:focus {
+    border: solid 2px #FFFFFF;
+	background-image: url(../Imagenes/btnwht.png);
+	background-repeat:no-repeat;
+	background-position:center;
+    background-color:#FECE1A;
+	cursor:pointer;
+    color:#181A1C;
+	width:100%;
+	height:470px;
+}
+.button-products:hover, .button-products:active {
+    background-color:#181A1C;
+    color:#FECE1A;
+}
+.button-service, .button-service:visited, .button-service:focus {
+    border: solid 2px #FFFFFF;
+	background-image: url(../Imagenes/btnwht2.png);
+	background-repeat:no-repeat;
+	background-position:center;
+    background-color:#FECE1A;
+    color:#181A1C;
+	cursor: pointer;
+	width:100%;
+	height:470px;
+}
+.button-service:hover, .button-service:active {
+    background-color:#181A1C;
+    color:#FECE1A;
+}
+/*end button*/
 /*
 2.3 Thumbnails - Predefined bootstrap's thumbnail class.
 **********/
  .thumbnail {
-    width:100%;
-    height:100%;
-    padding:0;
-    overflow: hidden;
-    position: relative;
-    border:0;
-    border-radius:0;
-    box-shadow:none;
-    text-align:center;
-    background: #191a1c;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	overflow: hidden;
+	position: relative;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	text-align: center;
+	background: #191a1c;
+	background-color: #191a1c;
 }
 .thumbnail .more {
     display:block;
@@ -412,8 +492,9 @@ p {
     padding-top:15px;
 }
 .service p {
-    padding:0px 50px;
-    height:60px;
+	padding: 0px 50px;
+	height: 60px;
+	font-size: 18px;
 }
 .service img {
     width:150px;
