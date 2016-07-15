@@ -1,4 +1,4 @@
-<?php require_once('../Connections/conexion.php'); include ('security.php'); ?>
+<?php require_once('../Connections/conexion.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -134,7 +134,7 @@ body {
           <p align="center">&nbsp;</p>
  <form name="form3" method="post" action="empleadoPage.php">
    <p align="center">
-     <a href="empleadoPage.php">
+     <a href="../index.php">
      <button class="button button-ps" input type="submit" onClick="this.form.action = 'empleadoPage.php'" id="button3" value="Ingresar">Volver</button>
    </a>   </p>
 

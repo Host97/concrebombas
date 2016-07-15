@@ -22,9 +22,8 @@ error_reporting(0);
 			setTimeout(function() {$('#mensaje').fadeOut('fast');}, 3000);
 		});
 		</script>
-        
 		
-        <link rel="shortcut icon" href="../../images/ico/apple-touch-icon-144.png">        
+     <link rel="shortcut icon" href="../../images/ico/apple-touch-icon-144.png">   
     <link href="calendario.css" rel="stylesheet" type="text/css">
     <link href="../../css/button.css" rel="stylesheet" type="text/css">
 	</head>
@@ -46,33 +45,31 @@ error_reporting(0);
                     <h1 title="menú de servicios" align="center">Agendamiento</h1>
                     
                    
-                </div>
+</div>
    <!-- Title section start -->             
    <!-- Explain section start -->
-        <div class="section secondary-section">
+<div class="section secondary-section">
             <div class="triangle"></div>
             <div class="container centered">
-                <h3 class="large-text">Bienvenidos al sistema de  agendamiento nuevo, recuerde que para a&ntilde;adir un agendamiento debe de hacerlo con m&aacute;s de 24 horas y se cuente con disponibilidad de d&iacute;a.</h3>
+                <h3 class="large-text">Bienvenidos al sistema de eliminaci&oacute;n de agendamientos, aqu&iacute; podr&aacute; eliminar el agendamiento que desee
+
+                </h3>
                 
             </div>
         </div>
-    <!-- Explain section end -->
-
-
-
-
-
+    <!-- Explain section end -->    
+        
+        
+		
+	
+<body>
 	<div id="agenda">
-    
-		<p>
-		  <?php
+		<?php
 		
 		//funcion para mostrar las fechas 
-		
-			include("config.inc.php");
 			include("securityCalendario.php");
+			include("config.inc.php");
 			$mostrar="";
-			$correo= $_SESSION["Email"];
 			function fecha ($valor)
 			{
 				$timer = explode(" ",$valor);
@@ -81,59 +78,17 @@ error_reporting(0);
 				return $fechex;
 			}
 			
-			//condicion para guardar un alquiler de bomba
-					
-			if (isset($_POST["guardarevento"])=="Si")
+			//condicion para eliminar la reservacion de una bomba
+			
+			if (isset($_GET["borrarevento"]))
 			{
-				$titulo = $_POST["titulo"];
-				
-				if($titulo=="--Seleccione bomba--")
-				{
-					echo "<p class='error' id='mensaje'>No ha seleccionado ninguna bomba</p>";
-				}
-				else
-				{
-				
-				$q1="insert into reservacion (Email,fecha,descripcion,activo,relacionar) values ('$correo','".$_POST["fecha"]."','".strip_tags($_POST["titulo"])."','1','1')";
+				$q1="delete from reservacion where id='".$_GET["borrarevento"]."' limit 1";
 				mysql_select_db($dbname);
-				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>la bomba se a reservado correctamente.</p>";
-				else $mostrar= "<p class='error' id='mensaje'>Se ha producido un error con su reservación.</p>";
-				}
+				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>su reservacion a sido cancelada correctamente.</p>";
+				else $mostrar="<p class='error' id='mensaje'>Se ha producido un error al cancelar su reserva.</p>";
 			}
 			
-			//condicion para guardar un alquiler de bomba
-						
-			if (isset($_POST["addevent"])=="Si")
-			{
-				$fechaGuardado = $_POST["fechas"];
-				$titulos = $_POST["titulos"];
-
-
-
-				$consulta = "select * from reservacion where fecha ='".$fechaGuardado."' and descripcion='".$titulos."'";
-				mysql_select_db($dbname);
-				$consulta1=mysql_query($consulta);
-				$consulta2=mysql_fetch_row($consulta1);
-				
-				if($titulos=="--Seleccione bomba--")
-				{
-					echo "<p class='error' id='mensaje'>No ha seleccionado ninguna bomba</p>";
-				}
-				else
-				if($fechaGuardado==$consulta2[2] && $titulos==$consulta2[3])
-				{
-					echo "<p class='error' id='mensaje'>Esta bomba no esta disponible para esta fecha</p>";
-				}
-				else
-				{
-				$q1="insert into reservacion (Email,fecha,descripcion,activo,relacionar) values ('$correo','".$_POST["fechas"]."','".$_POST["titulos"]."','1','1')";
-				mysql_select_db($dbname);
-				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>reserva guardada correctamente.</p>";
-				else $mostrar="<p class='error' id='mensaje'>Se ha producido un error guardando su reserva.</p>";
-				}
-			}
-			
-			//si el mes tiene menos de dos números es decir si es antes de octubre se le agrega un cero antes del numero de mes
+			//si el mes tiene menos de dos numeros es decir si es antes de octubre se le agrega un cero antes del numero de mes
 			
 			if (!isset($_GET["fecha"])) 
 			{
@@ -157,9 +112,9 @@ error_reporting(0);
 			
 			if (!isset($_GET["mes"])) $hoy=date("Y-m-d"); 
 			else $hoy=$_GET["ano"]."-".$_GET["mes"]."-01";
-
-
-			//en esta condicion se da el numero de dias que tiene el mes segun el año sea o no sea biciesto 
+			
+			
+			//en esta condicion se da el numero de dias que tiene el mes segun el año sea o no sea biciesto
 			
 			if (($elanio % 4 == 0) && (($elanio % 100 != 0) || ($elanio % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
 			else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
@@ -187,6 +142,7 @@ error_reporting(0);
 			}
 			
 			//se realiza un array que guarda los nombres de los meses
+			
 			$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 			
 			//se define la cantidad de casillas que tendra la tabla del calendario
@@ -196,7 +152,6 @@ error_reporting(0);
 			$tope=$dias[$mesactual]+$diasantes;
 			if ($tope%7!=0) $totalfilas=intval(($tope/7)+1);
 			else $totalfilas=intval(($tope/7));
-			
 			
 			//cabecera de la tabla del calendario
 			
@@ -209,7 +164,7 @@ error_reporting(0);
 			$filita=0;
 			
 			//en caso tal de que exista una reservación esta funcion la trae para colocarla en su respectivo campo
-						
+			
 			function buscarevento($fecha,$eventos,$titulos)
 			{
 				$clave=array_search($fecha,$eventos,true);
@@ -224,94 +179,61 @@ error_reporting(0);
 					echo "<td";
 					if ($j<10) $dd="0".$j;else $dd=$j;
 					$compuesta=$elanio."-$elmes-$dd";
-					
-					
-					//aca se define el tipo de casillas en el calendario segun la fecha en la que se encuentre
-					
-					$añoactual=date("Y");
-					$mesahora=date("m");
-					$diaactual=date("d");
-					
-					
-					if($elanio<$añoactual)
-					{
-						include ('noAgregar.php');
-					}
-					else
-					{
-						if($elanio>$añoactual)
-						{
-							include ('Agregar.php');
-						}
-						else
-						{
-							if($elmes<$mesahora)
-							{
-								include ('noAgregar.php');
-							}
-							else
-							if($elmes>$mesahora)
-							{
-								include ('Agregar.php');
-							}
-							else{
-							if($dd<=$diaactual)
-							{
-								include ('noAgregar.php');
-							}
-							else 
-							{
-								include ('Agregar.php');
-							}
-							}
-						}
-					}
-					
+					if (count($eventos)>0 && in_array($compuesta,$eventos,true)) {echo " class=' evento";$noagregar=true;}
+					else {echo " class='activa";$noagregar=false;}
+					if ($hoy==$compuesta) echo " hoy";
+					if ($noagregar==false) echo "'>$j<form id='evento$j' method='post' action='".$_SERVER["PHP_SELF"]."' style='display:none'><input type='hidden' name='fecha' value='$compuesta' /></form>";
+					else echo "'>$j<input type='hidden' name='addevent' value='Si' /><input type='hidden' name='fechas' value='$compuesta' /></form>";
 					
 					//se hace la consulta en la base de datos para mostar la reservación en el dia indicado
 					
 					$sqlevent="select * from reservacion where fecha='".$compuesta."' order by id";
 					mysql_select_db($dbname);
 					$revent=mysql_query($sqlevent);
+					
+					
+					//se realiza la condicion para eliminar la reservacion
+					
 					while($rowevent=mysql_fetch_array($revent))
 					{
-						echo "<p>$rowevent[descripcion]</p>";
+						echo "<p>$rowevent[descripcion]<a href='".$_SERVER["PHP_SELF"]."?borrarevento=".$rowevent["id"]."' onClick=\"return confirm('&iquest;Confirmas la eliminaci&oacute;n de la reservación?')\" alt='Boton para eliminar reservación' title='Eliminar esta reservación del ".fecha($compuesta)."' class='vtip'><img src='delete.png' /></a></p>";
 					}
 					
 					echo "</td>";
 					$j+=1;
-					
 				}
 				else echo "<td class='desactivada'>&nbsp;</td>";
 				if ($i==7 || $i==14 || $i==21 || $i==28 || $i==35 || $i==42) {echo "<tr>";$filita+=1;}
 				}
 			}
 			echo "</table>";
-		
-		//enlaces para navegar al mes pasado o al siguiente mes
+			
+			//enlaces para navegar al mes pasado o al siguiente mes
 			
 			$mesanterior=date("Y-m-d",mktime(0,0,0,$mesactual-1,01,$elanio));
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$mesactual+1,01,$elanio));
 			echo "<p>&laquo; <a href='".$_SERVER["PHP_SELF"]."?fecha=$mesanterior' alt='Enlace al mes anterior' title='Redirecciona al mes anterior' class='vtip'>Mes Anterior</a> - <a href='".$_SERVER["PHP_SELF"]."?fecha=$messiguiente' alt='Enlace al siguiente mes' title='Redirecciona al siguiente mes' class='vtip'>Mes Siguiente</a> &raquo;</p>";
 			?>
-		  
-		  <br>
-		  <br>
-	       <p align="center">
-  <a href="../clientePage.php">
+            
+            <br>
+          <br>
+          <p align="center">
+  <a href="../Administracion.php">
   <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" onClick=" return validar_Lista()" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >SALIR</button></a></p>
-		  
-		  <!--</td></tr></table>-->	  </p>
-		<p><br>
-	  </p>
-   </div>
-   
-   <!-- Footer section start -->
+          
+	</td></tr></table>
+    
+    </p>
+    <p>&nbsp;</p>
+    <p>
+      <!-- Footer section start -->
+    </p>
         <div class="footer">
             <p>&copy; PIERRE MAGIQUE Developers<br>
             SENA 2016</p>
         </div>
         <!-- Footer section end -->
+    
     
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -323,6 +245,5 @@ var pageTracker = _gat._getTracker("UA-266167-20");
 pageTracker._setDomainName(".martiniglesias.eu");
 pageTracker._trackPageview();
 } catch(err) {}</script>
-
 </body>
 </html>

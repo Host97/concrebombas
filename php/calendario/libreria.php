@@ -15,7 +15,6 @@
 	 $campos = implode (',',$array_campos);
 	 $sql = "select $campos from $tabla where $condicion";
 	 $retorno = conectar ($sql);
-	 mysql_query("SET NAMES 'utf8'");
 	 return $retorno;
 	 }
 ?>
@@ -27,7 +26,7 @@ function conectar ($sql)
 	$retorno=mysql_query($sql,$link)or die (mysql_error());
 	mysql_close($link);
 	return $retorno;
-	mysql_query("SET NAMES 'utf8'");
+	
 	}
  
 ?>
@@ -38,7 +37,6 @@ function insert($table,$array_campos,$array_valores)
 $campos=implode(',',$array_campos);
 $valores=implode("','",$array_valores);
 $sql="INSERT INTO $table ($campos) VALUES ('$valores')";
-mysql_query("SET NAMES 'utf8'");
 return $sql;
 }
 ?>

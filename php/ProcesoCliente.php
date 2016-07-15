@@ -1,38 +1,23 @@
-@Pierre_Magique
-version 2.0
-<title>proceso Cliente</title>
-<link rel="stylesheet" type="text/css" href="../css/button.css" />
-<link rel="shortcut icon" href="../images/ico/favicon.ico.bmp">
-<style type="text/css">
-body {
-	background-image: url(../Imagenes/font3.png);
-	background-color: #000;
-	background-repeat: no-repeat;
-}
-body,td,th {
-	color: #FFF;
-	font-family: Verdana, Geneva, sans-serif;
-	font-weight: bold;
-	font-size: 18px;
-}
-</style>
+<title>Bienvenido a Concrebombas</title>
+<link rel="stylesheet" type="text/css" href="../css/Table2.css"/>
+<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+<link rel="shortcut icon" href="../images/ico/apple-touch-icon-57.png">
 </head>
 
 <body>
-<form id="form1" name="form1" method="post" action="login.php">
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
+<div class="container"> <a href="ingresoCliente.php" class="brand"> <img  src="../Imagenes/LOGONAME.png" alt="Icono Empresarial:CONCREBOMBAS+BR" width="210"/></a></div>
+<!-- -->
+<form id="form1" name="form1" method="post" action="ingresoCliente.php">
   <p align="center">
-    <a href="login.php">
-    <button class="button button-sp" input type="submit" onClick="this.form.action = 'login.php'" id="button" value="volver">volver</button>
+    <a href="ingresoCliente.php">
+    <button class="button button-sp" input type="submit" onClick="this.form.action = 'ingresoCliente.php'" id="button" value="volver">volver</button>
   </a>  </p>
 </form>
 <p>&nbsp;</p>
-</body>
 
-<?php
+
+<div align="center">
+  <?php
 
 $NombreCliente = $_POST["NombreCliente"];
 $NombreEmpresa = $_POST["NombreEmpresa"];
@@ -52,14 +37,16 @@ $IBAN = $_POST["IBAN"];
 $BIC = $_POST["BIC"];
 $Banco = $_POST["Banco"];
 $Password = $_POST["Password"];
-$Permisos= 0;
+$Permisos= 1;
+$Activo= 1;
+$relacionar= 1;
 $link = mysql_connect("localhost","root","");
 mysql_select_db("concrebombas",$link);
 	
 	
-$consulta="INSERT INTO cliente(NombreCliente,NombreEmpresa,Apelativo,Domicilio,Almacen,Telefono,Movil,Fax,Email,Twiter,Facebook,CCC,IBAN,BIC,Banco,Identificacion,NumeroIdentificacion,Password) VALUES ('$NombreCliente', '$NombreEmpresa','$Apelativo','$Domicilio','$Almacen','$Telefono','$Movil','$Fax','$Email','$Twiter','$Facebook','$CCC','$IBAN','$BIC','$Banco','$Identificacion','$NumeroIdentificacion','$Password')";
+$consulta="INSERT INTO cliente(NombreCliente,NombreEmpresa,Apelativo,Domicilio,Almacen,Telefono,Movil,Fax,Email,Twiter,Facebook,CCC,IBAN,BIC,Banco,Identificacion,NumeroIdentificacion,Password,relacionar) VALUES ('$NombreCliente', '$NombreEmpresa','$Apelativo','$Domicilio','$Almacen','$Telefono','$Movil','$Fax','$Email','$Twiter','$Facebook','$CCC','$IBAN','$BIC','$Banco','$Identificacion','$NumeroIdentificacion','$Password','$relacionar')";
 
-$consulta1="INSERT INTO usuarios(Email,Password,Permisos) VALUES ('$Email', '$Password','$Permisos')";
+$consulta1="INSERT INTO usuarios(Email,Password,Permisos,Activo,relacionar) VALUES ('$Email', '$Password','$Permisos','$Activo','$relacionar')";
 
 mysql_query($consulta) or die(mysqli_error());
 mysql_query($consulta1) or die(mysqli_error());
@@ -68,8 +55,20 @@ mysql_close($link);
 
 echo '<center>¡Datos registrados satisfactoriamente! </center>'; 
 echo "</br>";
-echo '<center> Tu usuario ha sido creado con tu Email </center>';
-echo "</br>";
+echo '<center> Tu usuario ha sido creado con tu Email:</center>'; echo $_POST['Email'];
+
+echo "</br><strong>contraseña: </strong>";echo $_POST['Password'];
 
 ?>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<!-- Footer section start -->
+<div class="footer">
+    <p>&copy; PIERRE MAGIQUE Developers<br>
+  SENA 2016</p>
+</div>
+
+        <!-- Footer section end -->
+</body>
 </html>

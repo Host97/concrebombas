@@ -24,9 +24,11 @@ error_reporting(0);
 		</script>
         
 		
-        <link rel="shortcut icon" href="../../images/ico/apple-touch-icon-144.png">        
+        
+        <link rel="shortcut icon" href="../../images/ico/apple-touch-icon-144.png">
     <link href="calendario.css" rel="stylesheet" type="text/css">
     <link href="../../css/button.css" rel="stylesheet" type="text/css">
+
 	</head>
 <body>
 
@@ -52,7 +54,7 @@ error_reporting(0);
         <div class="section secondary-section">
             <div class="triangle"></div>
             <div class="container centered">
-                <h3 class="large-text">Bienvenidos al sistema de  agendamiento nuevo, recuerde que para a&ntilde;adir un agendamiento debe de hacerlo con m&aacute;s de 24 horas y se cuente con disponibilidad de d&iacute;a.</h3>
+                <h3 class="large-text">Bienvenido al sistema de  agendamiento nuevo, recuerde que para a&ntilde;adir un agendamiento debe de hacerlo con m&aacute;s de 24 horas y se cuente con disponibilidad de d&iacute;a.</h3>
                 
             </div>
         </div>
@@ -297,11 +299,11 @@ error_reporting(0);
 		  
 		  <br>
 		  <br>
-	       <p align="center">
-  <a href="../clientePage.php">
-  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" onClick=" return validar_Lista()" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >SALIR</button></a></p>
+		    <p align="center">
+  <a href="../Administracion.php">
+  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" onClick=" return validar_Lista()" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >volver</button></a></p>
 		  
-		  <!--</td></tr></table>-->	  </p>
+		  <!--</td></tr></table>--></p>
 		<p><br>
 	  </p>
    </div>

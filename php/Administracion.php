@@ -1,33 +1,7 @@
+<?php include('security.php');?>
 <?php require_once('../Connections/conexion.php'); ?>
 <?php
-//initialize the session
-if (!isset($_SESSION)) {
-  session_start();
-}
-
-// ** Logout the current user. **
-$logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
-if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
-  $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
-  //to fully log out a visitor we need to clear the session varialbles
-  $_SESSION['MM_Username'] = NULL;
-  $_SESSION['MM_UserGroup'] = NULL;
-  $_SESSION['PrevUrl'] = NULL;
-  unset($_SESSION['MM_Username']);
-  unset($_SESSION['MM_UserGroup']);
-  unset($_SESSION['PrevUrl']);
-	
-  $logoutGoTo = "../index.php";
-  if ($logoutGoTo) {
-    header("Location: $logoutGoTo");
-    exit;
-  }
-}
-?>
-<?php
+if ($_SESSION['Permisos']!=3){ session_destroy(); header("Location: ../index.php");}
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -173,7 +147,7 @@ $queryString_empleados = sprintf("&totalRows_empleados=%d%s", $totalRows_emplead
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/apple-touch-icon-72.png">
         <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57.png">
-        <link rel="shortcut icon" href="../images/ico/favicon.ico.bmp">
+        <link rel="shortcut icon" href="../images/ico/apple-touch-icon-144.png">
         <style type="text/css">
         body,td,th {
 	font-family: Roboto, sans-serif;
@@ -195,7 +169,7 @@ $queryString_empleados = sprintf("&totalRows_empleados=%d%s", $totalRows_emplead
                     <!-- Navigation button, visible on small resolution -->
                     </p>
                     <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <i class="icon-menu"></i>
+                        <i class="icon-menu" alt="Despliega el menú de navegación" title="menú de navegación"></i>
                   </button>
                     <!-- Main navigation -->
                     <div class="nav-collapse collapse pull-right">
@@ -205,8 +179,8 @@ $queryString_empleados = sprintf("&totalRows_empleados=%d%s", $totalRows_emplead
                             <li><a href="#product">Productos</a></li>
                             <li><a href="#employe">Empleados</a></li>
                             <li><a href="#clients">Clientes</a></li>
-                            <li><a href="#contact">Servicio Tecnico</a></li>
-                            <li><a href="<?php echo $logoutAction ?>">Cerrar Sesion</a></li>
+                            <li><a href="#contact">Contacto</a></li>
+                            <li><a href="close_session.php">Cerrar Sesion</a></li>
                       </ul>
                   </div>
                     <!-- End main navigation -->
@@ -228,149 +202,13 @@ $queryString_empleados = sprintf("&totalRows_empleados=%d%s", $totalRows_emplead
                     <h1>&nbsp;</h1>
                     <h1>Editar Eventos</h1>
                     <!-- Section's title goes here -->
-                  <p>En esta seccion puede revisar, editar, eliminar e ingresar nuevas agendaciones.</p>
+                  <p>En esta sección puede revisar, editar, eliminar e ingresar nuevas agendaciones.</p>
                     <!--Simple description for section goes here. -->
                 </div>
-                <div class="row-fluid">
-                    <div class="span4"></div>
-                    <div class="span4"></div>
-                    <div class="span4" ></div>
-                  <div align="center">
-                    <?php
-ini_set('display_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
-error_reporting(0);
-include("calendario/config.inc.php");
-$mostrar="";
-function fecha ($valor)
-	{
-	$timer = explode(" ",$valor);
-	$fecha = explode("-",$timer[0]);
-	$fechex = $fecha[2]."/".$fecha[1]."/".$fecha[0];
-				return $fechex;
-			}
-			if (isset($_POST["guardarevento"])=="Si")
-			{
-				$q1="insert into reservacion (fecha,descripcion) values ('".$_POST["fecha"]."','".strip_tags($_POST["titulo"])."')";
-				mysql_select_db($dbname);
-				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>la bomba se a reservado correctamente.</p>";
-				else $mostrar= "<p class='error' id='mensaje'>Se ha producido un error con su reservación.</p>";
-			}
-			if (isset($_GET["borrarevento"]))
-			{
-				$q1="delete from reservacion where id='".$_GET["borrarevento"]."' limit 1";
-				mysql_select_db($dbname);
-				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>su reservacion a sido cancelada correctamente.</p>";
-				else $mostrar="<p class='error' id='mensaje'>Se ha producido un error al cancelar su reserva.</p>";
-			}
-			
-			if (isset($_POST["addevent"])=="Si")
-			{
-				
-				$q1="insert into reservacion (fecha,descripcion) values ('".$_POST["fechas"]."','".$_POST["titulos"]."')";
-				mysql_select_db($dbname);
-				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>reserva guardada correctamente.</p>";
-				else $mostrar="<p class='error' id='mensaje'>Se ha producido un error guardando su reserva.</p>";
-			}
-			
-			if (!isset($_GET["fecha"])) 
-			{
-				$mesactual=intval(date("m"));
-				if ($mesactual<10) $elmes="0".$mesactual;
-				else $elmes=$mesactual;
-				$elanio=date("Y");
-			} 
-			else 
-			{
-				$cortefecha=explode("-",$_GET["fecha"]);
-				$mesactual=intval($cortefecha[1]);
-				if ($mesactual<10) $elmes="0".$mesactual;
-				else $elmes=$mesactual;
-				$elanio=$cortefecha[0];
-			}
-			
-			$primeromes=date("N",mktime(0,0,0,$mesactual,1,$elanio));
-			
-			if (!isset($_GET["mes"])) $hoy=date("Y-m-d"); 
-			else $hoy=$_GET["ano"]."-".$_GET["mes"]."-01";
-			
-			if (($elanio % 4 == 0) && (($elanio % 100 != 0) || ($elanio % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
-			else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
-			
-			$ides=array();
-			$eventos=array();
-			$titulos=array();
-			
-			$q1="select * from reservacion where month(fecha)='".$elmes."' and year(fecha)='".$elanio."'";
-			mysql_select_db($dbname);
-			$r1=mysql_query($q1);
-			if ($f1=mysql_fetch_array($r1))
-			{
-				$h=0;
-				do
-				{
-					$ides[$h]=$f1["id"];
-					$eventos[$h]=$f1["fecha"];
-					$titulos[$h]=$f1["descripcion"];
-					$h+=1;
-				}
-				while($f1=mysql_fetch_array($r1));
-			}
-			$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-			$diasantes=$primeromes-1;
-			$diasdespues=42;
-			$tope=$dias[$mesactual]+$diasantes;
-			if ($tope%7!=0) $totalfilas=intval(($tope/7)+1);
-			else $totalfilas=intval(($tope/7));
-			echo "<h2>Calendario de reservas para: ".$meses[$mesactual]." de ".$elanio."</h2>";
-			echo $mostrar;
-			echo "<script>function mostrar(cual) {if (document.getElementById(cual).style.display=='block') {document.getElementById(cual).style.display='none';} else {document.getElementById(cual).style.display='block'} }</script>";
-			echo "<table class='calendario' cellspacing='0' cellpadding='0'>";
-			echo "<tr><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th><th>D</th></tr><tr>";
-			$j=1;
-			$filita=0;
-			function buscarevento($fecha,$eventos,$titulos)
-			{
-				$clave=array_search($fecha,$eventos,true);
-				return $titulos[$clave];
-			}
-			for ($i=1;$i<=$diasdespues;$i++)
-			{
-				if ($filita<$totalfilas)
-				{
-				if ($i>=$primeromes && $i<=$tope) 
-				{
-					echo "<td";
-					if ($j<10) $dd="0".$j;else $dd=$j;
-					$compuesta=$elanio."-$elmes-$dd";
-					if (count($eventos)>0 && in_array($compuesta,$eventos,true)) {echo " class=' evento";$noagregar=true;}
-					else {echo " class='activa";$noagregar=false;}
-					if ($hoy==$compuesta) echo " hoy";
-					if ($noagregar==false) echo "'>$j<a href='javascript:mostrar(\"evento$j\")' title='Crear una reservación el ".fecha($compuesta)."' class='vtip'><img src='add.png' /></a><form id='evento$j' method='post' action='".$_SERVER["PHP_SELF"]."' style='display:none'><input type='text' name='titulo' class='text' /><input type='Submit' name='Enviar' value='Guardar' class='enviar' /><input type='hidden' name='guardarevento' value='Si' /><input type='hidden' name='fecha' value='$compuesta' /></form>";
-					else echo "'>$j<a href='javascript:mostrar(\"evento$j\")' title='Agregar una reservación el ".fecha($compuesta)."' class='vtip'><img src='add.png' /></a><form id='evento$j' method='post' action='".$_SERVER["PHP_SELF"]."' style='display:none'><input type='text' name='titulos' class='text' /><input type='Submit' name='Enviar' value='Guardar' class='enviar' /><input type='hidden' name='addevent' value='Si' /><input type='hidden' name='fechas' value='$compuesta' /></form>";
-					
-					$sqlevent="select * from reservacion where fecha='".$compuesta."' order by id";
-					mysql_select_db($dbname);
-					$revent=mysql_query($sqlevent);
-					while($rowevent=mysql_fetch_array($revent))
-					{
-						echo "<p>$rowevent[descripcion]<a href='".$_SERVER["PHP_SELF"]."?borrarevento=".$rowevent["id"]."' onClick=\"return confirm('&iquest;Confirmas la eliminaci&oacute;n de la reservación?')\" title='Eliminar esta reservación del ".fecha($compuesta)."' class='vtip'><img src='delete.png' /></a></p>";
-					}
-					
-					echo "</td>";
-					$j+=1;
-				}
-				else echo "<td class='desactivada'>&nbsp;</td>";
-				if ($i==7 || $i==14 || $i==21 || $i==28 || $i==35 || $i==42) {echo "<tr>";$filita+=1;}
-				}
-			}
-			echo "</table>";
-			$mesanterior=date("Y-m-d",mktime(0,0,0,$mesactual-1,01,$elanio));
-			$messiguiente=date("Y-m-d",mktime(0,0,0,$mesactual+1,01,$elanio));
-			echo "<p>&laquo; <a href='".$_SERVER["PHP_SELF"]."?fecha=$mesanterior'>Mes Anterior</a> - <a href='".$_SERVER["PHP_SELF"]."?fecha=$messiguiente'>Mes Siguiente</a> &raquo;</p>";
-			?>
-                  </div>
+                <div class="row-fluid" align="center">
+                    <div class="span4"><a href="calendario/AdmAgendar.php"><img src="../Imagenes/Service5.png"></a>reservaciones</div>
+                    <div class="span4"><a href="gestionAdmin.php"><img src="../Imagenes/Service3.png"></a>reportes</div>
+                    <div class="span4"><a href="calendario/AdmEliminarAgendados.php"> <img src="../Imagenes/Service4.png"></a>anulaciones</div>
                 </div>
             </div>
         </div>
@@ -380,7 +218,7 @@ function fecha ($valor)
             <div class="triangle"></div>
       <div class="title">
             <h1>Lista de productos de Portafolio</h1>
-            <p>Aqui puede editar la información de los productos y servicios que se pueden ver en la pagina principal.</p>
+            <p>Aquí puede editar la información de los productos y servicios que se pueden ver en la página principal.</p>
         </div>
       <div align="center">
       <table width="200%" border="1">
@@ -430,7 +268,7 @@ function fecha ($valor)
             <div class="container">
                 <div class="title">
                     <h1>Lista de Empleados</h1>
-                    <p>Aqui encuentra la lista de empleados, puede revisar los empleados, crear nuevo o inabilitar</p>
+                    <p>Aquí encuentra la lista de empleados, puede revisar los empleados, crear nuevo o inhabilitar</p>
                 </div>
                 
  <div class="container">
@@ -471,7 +309,7 @@ function fecha ($valor)
         <div class="section secondary-section">
             <div class="triangle"></div>
             <div class="container centered">
-                <p class="large-text">La capacidad de vender, de comunicarse con otro ser humano, cliente, empleado, jefe, esposa o hijo, construye la base del exito personal. Las habilidades de comunicación como escribir, hablar, negociar son fundametales para una vida exitosa- <em>Robert kyosaki.</em></p>
+                <p class="large-text">La capacidad de vender, de comunicarse con otro ser humano, cliente, empleado, jefe, esposa o hijo, construye la base del éxito personal. Las habilidades de comunicación como escribir, hablar, negociar son fundamentales para una vida exitosa- <em>Robert kyosaki.</em></p>
          
             </div>
         </div>
@@ -522,7 +360,7 @@ function fecha ($valor)
                 <div class="container">
                     <div class="title">
                         <h1>Contacta con los Programadores</h1>
-                        <p>En caso de nesecitar algun cambio no especificado en este panel de Control, contactalos en: </p>
+                        <p>En caso de necesitar algún cambio no especificado en este panel de Control, contáctalos en: </p>
                     </div>
                 </div>
                 <div class="container">
@@ -533,7 +371,7 @@ function fecha ($valor)
                         <p>+57 1 3107840614</p>
                         <div class="title">
                             <h3>Go social!</h3>
-                            <p>O contactalos por sus redes sociales</p>
+                            <p>O contáctalos por sus redes sociales</p>
                         </div>
                   </div>
                     <div class="row-fluid centered">

@@ -1,4 +1,5 @@
-<?php require_once('../Connections/conexion.php'); ?>
+<?php require_once('../Connections/conexion.php'); include('security.php');
+error_reporting(0);?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -94,6 +95,14 @@ mysql_free_result($editProduct);
 ?>
 </p>
 <p>&nbsp;</p>
+<script>
+function updateImage()
+{
+	self.name = 'opener';
+	remote = open('questionImage.php', 'remote', 'width=400, heigth=150,location=no,scrollbars=yes, menubars=no, toolbars=no, resizable=yes, fullscreen=no, status=yes');
+	remote.focus();
+}
+</script>
 <form action="<?php echo $editFormAction; ?>" method="post" name="form1" id="form1">
   <table align="center">
     <tr valign="baseline">
@@ -118,9 +127,11 @@ mysql_free_result($editProduct);
     </tr>
     <tr valign="baseline">
       <td nowrap="nowrap" align="right">Imagen:</td>
-      <td><input type="text" name="imagen" value="<?php echo htmlentities($row_editProduct['imagen'], ENT_COMPAT, ''); ?>" size="32" /></td>
+      <td><input type="text" name="strTmagen" value="<?php echo htmlentities($row_editProduct['imagen'], ENT_COMPAT, ''); ?>" size="32" />
+        <input type="button" name="button" id="button" value="Buscar.." onclick="script:UpdateImage();" />
+      </td>
     </tr>
-    <tr valign="baseline">
+    <tr valign="baseline"> 
       <td nowrap="nowrap" align="right">Activo:</td>
       <td valign="baseline"><table>
         <tr>
@@ -143,8 +154,13 @@ mysql_free_result($editProduct);
   <input type="hidden" name="MM_update" value="form1" />
   <input type="hidden" name="idproducto" value="<?php echo $row_editProduct['idproducto']; ?>" />
 </form>
+<p align="center">
+  <a href="Administracion.php">
+  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >SALIR</button></a></p>
 <p>&nbsp;</p>
 <div class="footer">
   <p align="center">&copy; PIERRE MAGIQUE Developers<br />
   SENA 2016</p>
 </div>
+
+

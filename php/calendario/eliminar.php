@@ -1,4 +1,5 @@
 <?php
+//desarrollo por Hollmann Peñuela
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
@@ -7,73 +8,71 @@ error_reporting(0);
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="content-type" content="text/html;charset=utf8" />
 		<title>Alquiler de bombas</title>
-        <link rel="stylesheet" type="text/css" href="../../css/button.css" />
 		<meta http-equiv="PRAGMA" content="NO-CACHE" />
 		<meta http-equiv="EXPIRES" content="-1" />
-		<script type="text/javascript" src="../../js/jquery.js"></script>
+		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="vtip.js"></script>
 		<script type="text/javascript">
+		
+		//script cuando recarga la pagina
+		
 		$(document).ready(function(){
 			setTimeout(function() {$('#mensaje').fadeOut('fast');}, 3000);
 		});
 		</script>
-		<style>
-		* {margin: 0;padding: 0;font-family:Helvetica, Arial, Tahoma, sans-serif;}
-		html,body{height:100%;width:100%;outline:0;overflow:hidden}
-		body {
-	text-align: center;
-	margin: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background: #fff;
-	padding: 30px 0;
-	background-color: #FFF;
-	background-image: url();
-}
-		p#vtip { display: none; position: absolute; padding: 5px; left: 5px; font-size: 0.75em; background-color: #666666; border: 1px solid #666666; -moz-border-radius: 5px; -webkit-border-radius: 5px; z-index: 9999;color:white }
-		p#vtip #vtipArrow { position: absolute; top: -10px; left: 5px }
-		.ok{border:1px dotted green;color:green;padding:10px}
-		#agenda{margin:10px;width:980px;margin:0 auto}
-		#agenda h1{text-align:left;margin:0;font-size:1.5em;color:#969696}
-		#agenda h2{text-align:left;margin:0;font-size:1em;color:#312c2b}
-		#agenda table.calendario {margin:10px auto;width:100%;border:1px dotted #ccc;font-size:12px;}
-		.calendario th {border:1px dotted #ccc;font-weight:bold;background:#666;color:white;padding:10px 5px;}
-		.calendario td{padding:10px 5px;text-align:center;border:1px dotted #ccc;width:100px;white-space:pre-line;}
-		.calendario td p{margin:5px;font-size:12px;border:1px solid #ccc;text-align:left;padding:5px}
-		.calendario td.desactivada {background:#dcdcdc;}
-		.calendario td.activa {background:#FFCD00;}
-		.calendario td.evento {background:#312c2b;color:white}
-		.calendario td.hoy{font-weight:bold}
-		.calendario form{margin:5px 0 !important}
-		.calendario input.text{border:1px dotted #ccc;background:white;width:200px !important}
-		.calendario input.enviar{border:1px dotted #ccc;background:white;width:70px !important;background:#ccc;margin:0 0 0 10px;}
-		.calendario td img{vertical-align:middle;float:right;border:0;width:16px;height:16px}
-		.vtip{cursor:pointer;}
-		.verde{font-size:125% !important;font-weight:bold;color:green;}
-		.rojo{font-size:125% !important;font-weight:bold;color:red;}
-		body,td,th {
-	color: #000;
-}
-        </style>
-</head>
+		
+        
+    <link href="calendario.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="../../images/ico/apple-touch-icon-144.png">
+    <link href="../../css/button.css" rel="stylesheet" type="text/css">
+	</head>
+<body>
+
+
+
+<div align="left">
+  <!-- Title section start -->
+</div>
+ <div class="container">
+   <div align="left"><a href="#" class="brand">
+     <img src="../../Imagenes/LOGONAME.png" alt="Icono Empresarial:CONCREBOMBAS+BR" width="210"/></a></div>
+ </div>
+                        
+<p>&nbsp;</p>
+
+<div  class="primary-section">
+                    <h1 title="menú de servicios" align="center">Agendamiento</h1>
+                    
+                   
+</div>
+   <!-- Title section start -->             
+   <!-- Explain section start -->
+<div class="section secondary-section">
+            <div class="triangle"></div>
+            <div class="container centered">
+                <h3 class="large-text">Bienvenidos al sistema de eliminacion de agendamientos, recuerde que para eliminar un agendamiento previo debe de acerlo con mas de 24 horas de antelaci&oacute;n
+
+                </h3>
+                
+            </div>
+        </div>
+    <!-- Explain section end -->    
+        
+        
+		
+	
 <body>
 	<div id="agenda">
-<form name="form1" method="post" action="">
-  <h2><strong>Calendario de cancelaci&oacute;n de reservas</strong></h2>
-  <p></p>
-</form>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h2>&nbsp;</h2>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-		<p>
-		  <?php
+		<?php
+		
+		//funcion para mostrar las fechas 
+		
 			include("config.inc.php");
+			include("securityCalendario.php");
 			$mostrar="";
+			$correo= $_SESSION["Email"];
 			function fecha ($valor)
 			{
 				$timer = explode(" ",$valor);
@@ -81,14 +80,19 @@ error_reporting(0);
 				$fechex = $fecha[2]."/".$fecha[1]."/".$fecha[0];
 				return $fechex;
 			}
+			
+			//condicion para eliminar la reservacion de una bomba
+			
 			if (isset($_GET["borrarevento"]))
-			{
-				$q1="delete from reservacion where id='".$_GET["borrarevento"]."' limit 1";
+			{	
+					
+				$q1="delete from reservacion where id='".$_GET["borrarevento"]."' AND Email='$correo' limit 1";
 				mysql_select_db($dbname);
-				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>su reservacion a sido cancelada correctamente.</p>";
+				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>su reservacion a sido cancelada correctamente.</p>"		;				
 				else $mostrar="<p class='error' id='mensaje'>Se ha producido un error al cancelar su reserva.</p>";
 			}
 			
+			//si el mes tiene menos de dos numeros es decir si es antes de octubre se le agrega un cero antes del numero de mes
 			
 			if (!isset($_GET["fecha"])) 
 			{
@@ -106,10 +110,15 @@ error_reporting(0);
 				$elanio=$cortefecha[0];
 			}
 			
+			//aqui se coloca la fecha con el primer dia del mes
+			
 			$primeromes=date("N",mktime(0,0,0,$mesactual,1,$elanio));
 			
 			if (!isset($_GET["mes"])) $hoy=date("Y-m-d"); 
 			else $hoy=$_GET["ano"]."-".$_GET["mes"]."-01";
+			
+			
+			//en esta condicion se da el numero de dias que tiene el mes segun el año sea o no sea biciesto
 			
 			if (($elanio % 4 == 0) && (($elanio % 100 != 0) || ($elanio % 400 == 0))) $dias=array("","31","29","31","30","31","30","31","31","30","31","30","31");
 			else $dias=array("","31","28","31","30","31","30","31","31","30","31","30","31");
@@ -117,6 +126,8 @@ error_reporting(0);
 			$ides=array();
 			$eventos=array();
 			$titulos=array();
+			
+			//se hace la consulta en la base de datos para traer la reservación de la bomba
 			
 			$q1="select * from reservacion where month(fecha)='".$elmes."' and year(fecha)='".$elanio."'";
 			mysql_select_db($dbname);
@@ -133,12 +144,21 @@ error_reporting(0);
 				}
 				while($f1=mysql_fetch_array($r1));
 			}
+			
+			//se realiza un array que guarda los nombres de los meses
+			
 			$meses=array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+			
+			//se define la cantidad de casillas que tendra la tabla del calendario
+			
 			$diasantes=$primeromes-1;
 			$diasdespues=42;
 			$tope=$dias[$mesactual]+$diasantes;
 			if ($tope%7!=0) $totalfilas=intval(($tope/7)+1);
 			else $totalfilas=intval(($tope/7));
+			
+			//cabecera de la tabla del calendario
+			
 			echo "<h2>Calendario de reservas para: ".$meses[$mesactual]." de ".$elanio."</h2>";
 			echo $mostrar;
 			echo "<script>function mostrar(cual) {if (document.getElementById(cual).style.display=='block') {document.getElementById(cual).style.display='none';} else {document.getElementById(cual).style.display='block'} }</script>";
@@ -146,6 +166,9 @@ error_reporting(0);
 			echo "<tr><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th><th>D</th></tr><tr>";
 			$j=1;
 			$filita=0;
+			
+			//en caso tal de que exista una reservación esta funcion la trae para colocarla en su respectivo campo
+			
 			function buscarevento($fecha,$eventos,$titulos)
 			{
 				$clave=array_search($fecha,$eventos,true);
@@ -166,13 +189,57 @@ error_reporting(0);
 					if ($noagregar==false) echo "'>$j<form id='evento$j' method='post' action='".$_SERVER["PHP_SELF"]."' style='display:none'><input type='hidden' name='fecha' value='$compuesta' /></form>";
 					else echo "'>$j<input type='hidden' name='addevent' value='Si' /><input type='hidden' name='fechas' value='$compuesta' /></form>";
 					
+					//se hace la consulta en la base de datos para mostar la reservación en el dia indicado
 					
 					$sqlevent="select * from reservacion where fecha='".$compuesta."' order by id";
 					mysql_select_db($dbname);
 					$revent=mysql_query($sqlevent);
+					
+					
+					//se realiza la condicion para eliminar la reservacion
+					
 					while($rowevent=mysql_fetch_array($revent))
 					{
-						echo "<p>$rowevent[descripcion]<a href='".$_SERVER["PHP_SELF"]."?borrarevento=".$rowevent["id"]."' onClick=\"return confirm('&iquest;Confirmas la eliminaci&oacute;n de la reservación?')\" title='Eliminar esta reservación del ".fecha($compuesta)."' class='vtip'><img src='delete.png' /></a></p>";
+						
+				$añoactual=date("Y");
+				$mesahora=date("m");
+				$diaactual=date("d");
+				
+				
+				if($elanio<$añoactual)
+					{
+						echo "<p>$rowevent[descripcion]</p>";
+					}
+					else
+					{
+						if($elanio>$añoactual)
+						{
+							include ('siEliminar.php');
+						}
+						else
+						{
+							if($elmes<$mesahora)
+							{
+								echo "<p>$rowevent[descripcion]</p>";
+							}
+							else
+							if($elmes>$mesahora)
+							{
+								include ('siEliminar.php');
+							}
+							else{
+							if($dd<=$diaactual)
+							{
+								echo "<p>$rowevent[descripcion]</p>";
+							}
+							else 
+							{
+								include ('siEliminar.php');
+							}
+							}
+						}
+					}
+												
 					}
 					
 					echo "</td>";
@@ -183,26 +250,38 @@ error_reporting(0);
 				}
 			}
 			echo "</table>";
+			
+			//enlaces para navegar al mes pasado o al siguiente mes
+			
 			$mesanterior=date("Y-m-d",mktime(0,0,0,$mesactual-1,01,$elanio));
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$mesactual+1,01,$elanio));
-			echo "<p>&laquo; <a href='".$_SERVER["PHP_SELF"]."?fecha=$mesanterior'>Mes Anterior</a> - <a href='".$_SERVER["PHP_SELF"]."?fecha=$messiguiente'>Mes Siguiente</a> &raquo;</p>";
+			echo "<p>&laquo; <a href='".$_SERVER["PHP_SELF"]."?fecha=$mesanterior' alt='Enlace al mes anterior' title='Redirecciona al mes anterior' class='vtip'>Mes Anterior</a> - <a href='".$_SERVER["PHP_SELF"]."?fecha=$messiguiente' alt='Enlace al siguiente mes' title='Redirecciona al siguiente mes' class='vtip'>Mes Siguiente</a> &raquo;</p>";
 			?>
-		  </td></tr></table>
-		  <script type="text/javascript">
+            
+            <br>
+          <br>
+          <p align="center">
+  <a href="../clientePage.php">
+  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" onClick=" return validar_Lista()" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >SALIR</button></a></p>
+            
+	</td></tr></table>
+    
+    </p>
+    <p>&nbsp;</p>
+    <p>
+      <!-- Footer section start -->
+    </p>
+        <div class="footer">
+            <p>&copy; PIERRE MAGIQUE Developers<br>
+            SENA 2016</p>
+        </div>
+        <!-- Footer section end -->
+    
+    
+<script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-</p>
-		<p>&nbsp;</p>
-<p>&nbsp; </p>
-<form name="form3" method="post" action="../clientePage.php">
-   <p align="center">
-     <a href="../clientePage.php">
-     <button class="button button-ps" input type="submit" onClick="this.form.action = '../clientePage.php'" id="button3" value="Ingresar">Volver</button>
-     </a>
-  </p>
-</form>
-     
+</script>
 <script type="text/javascript">
 try {
 var pageTracker = _gat._getTracker("UA-266167-20");

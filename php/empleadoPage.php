@@ -1,37 +1,7 @@
+<?php include('security.php');?>
 <?php require_once('../Connections/conexion.php'); ?>
 <?php
-//initialize the session
-if (!isset($_SESSION)) {
-  session_start();
-}
-
-// ** Logout the current user. **
-$logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
-if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
-  $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
-  //to fully log out a visitor we need to clear the session varialbles
-  $_SESSION['MM_Username'] = NULL;
-  $_SESSION['MM_UserGroup'] = NULL;
-  $_SESSION['PrevUrl'] = NULL;
-  unset($_SESSION['MM_Username']);
-  unset($_SESSION['MM_UserGroup']);
-  unset($_SESSION['PrevUrl']);
-	
-  $logoutGoTo = "../index.php";
-  if ($logoutGoTo) {
-    header("Location: $logoutGoTo");
-    exit;
-  }
-}
-?>
-<?php
-//initialize the session
-if (!isset($_SESSION)) {
-  session_start();
-}
+if ($_SESSION['Permisos']!=2){ session_destroy(); header("Location: ../index.php");}
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -80,7 +50,7 @@ $totalRows_consulta_nombre = mysql_num_rows($consulta_nombre);
     <head>
         <meta charset=utf-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Concrebombas</title>
+        <title>Página empleado/<?php echo $row_consulta_nombre['Cargo']; ?> - Concrebombas</title>
         <!-- Load Roboto font -->
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <!-- Load css styles -->
@@ -107,19 +77,19 @@ $totalRows_consulta_nombre = mysql_num_rows($consulta_nombre);
             <div class="navbar-inner">
                 <div class="container">
                     <a href="#" class="brand">
-                        <img  src="../Imagenes/LOGONAME.png" />
+                        <img  src="../Imagenes/LOGONAME.png" alt="Icono Empresarial:CONCREBOMBAS+BR" />
                         <!-- This is website logo -->
                     Wellcome <?php echo $row_consulta_nombre['Cargo']; ?> <?php echo $row_consulta_nombre['Nombre']; ?> <?php echo $row_consulta_nombre['Apellido']; ?></a>
                     <!-- Navigation button, visible on small resolution -->
                     <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <i class="icon-menu"></i>
+                        <i class="icon-menu" alt="Despliega el menú de navegación" title="menú de navegación"></i>
                     </button>
                     <!-- Main navigation -->
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav" id="top-navigation">
-                            <li class="active"><a href="<?php echo $logoutAction ?>">Cerrar Sesion</a></li>
+                            <li class="active"><a href="close_session.php">Cerrar Sesion</a></li>
                           <li><a href="#price">Precio</a></li>
-                            <li><a href="#contact">Reportes</a></li>
+                            <li><a href="#report">Reportes</a></li>
                            
                            
                       </ul>
@@ -129,19 +99,18 @@ $totalRows_consulta_nombre = mysql_num_rows($consulta_nombre);
             </div>
         </div>
         <!-- Start home section -->
-        <div id="home">
-            
-
+        <div id="home">    
+		</div>
         <!-- Price section start -->
         <div id="price" class="section secondary-section">
             <div class="container">
                 <div class="title">
-                    <h1>Precios</h1>
+                    <h1 title="Sección de precios">Precios</h1>
                     <p>Tenemos los mejores precios del mercado y una exelente calidad y certificación.</p>
                 </div>
                 <div class="centered">
                   <p class="price-text">Revisa nuestros precios dando clic en cotización.</p>
-                    <a href="lista.php" class="button">Ver Listado</a>
+                    <a href="lista.php" class="button" alt="ver el listado de los productos y servicios">Ver Listado</a>
                 </div>
             </div>
         </div>
@@ -153,35 +122,39 @@ $totalRows_consulta_nombre = mysql_num_rows($consulta_nombre);
               <div class="title clearfix">
                 <div class="pull-left">
                   <h3>Exelencia y calidad del servicio dia a dia</h3>
-                </div>
               </div>
+             </div>
             </div>
-            <div id="success-subscribe" class="alert alert-success invisible"> <strong>Well done!</strong>You successfully subscribet to our newsletter.</div>
-            <div class="row-fluid">
-              <div class="span7">
-                <div id="err-subscribe" class="error centered">Please provide valid email address.</div>
-              </div>
-            </div>
+           </div>
           </div>
+         </div>
         </div>
         <!-- Newsletter section end -->
-    <!-- Contact section start -->
-        <div id="contact" class="contact">
+    <!-- Report section start -->
+        <div id="report" class="contact">
             <div class="section secondary-section">
                 <div class="container">
                     <div class="title">
-                        <h1>Gestion de Servicio</h1>
+                        <h1 title="Sección de envio de reporte">Gestión de Servicio</h1>
                         <p>Por favor envie sus reportes completamente diligenciados haciendo clic en el botón</p>
                         <p>&nbsp;</p>
                         <div class="centered">
                   
-                    <a href="GestionServicio.php" class="button">Generar Reporte</a>
+                    <a href="gestion_datosPersonales.php" class="button" alt="al hacer click elempleado accede al formulario de envio de reporte de la gestion del servicio" title="Accede y llena el reporte">Generar Reporte</a>
                 </div>
-                    </div>
-                </div>
+               </div>
+              </div>
+   <!-- Report section end -->
+   <div class="section primary-section">
+    <div class="triangle"></div>
+       <div class="container centered">
+                <p>Sí el plan no funciona, cambia el plan pero no cambia la meta.</p>
+                
+            </div>
+        </div>
+   <!-- Contact section start -->
                 <div class="container">
                     <div class="span9 center contact-info">
-                        <p>&nbsp;</p>
                         <div class="title">
                           <h3>Siguenos en nuestras redes sociales</h3>
                         </div>
@@ -190,17 +163,17 @@ $totalRows_consulta_nombre = mysql_num_rows($consulta_nombre);
                         <ul class="social">
                             <li>
                                 <a href="">
-                                    <span class="icon-facebook-circled"></span>
+                                    <span class="icon-facebook-circled" alt="Red Social Facebook" title="Facebook"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="icon-twitter-circled"></span>
+                                    <span class="icon-twitter-circled" alt="Red Social Twitter" title="Twitter"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="icon-linkedin-circled"></span>
+                                    <span class="icon-phone" alt="Red Social WhatsApp"></span>
                                 </a>
                             </li>
                             <li>

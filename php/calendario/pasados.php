@@ -4,15 +4,15 @@ ini_set('log_errors', 1);
 ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
 error_reporting(E_ALL);
 ?>
-<html xmlns="http://www.w3.org/1999/xhtml"/>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
 		<title>Calendario en PHP con eventos</title>
 		<meta http-equiv="PRAGMA" content="NO-CACHE" />
 		<meta http-equiv="EXPIRES" content="-1" />
-		<script type="text/javascript" src="../../js/calendario/jquery.js"></script>
-		<script type="text/javascript" src="../../js/calendario/vtip.js"></script>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="vtip.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			setTimeout(function() {$('#mensaje').fadeOut('fast');}, 3000);

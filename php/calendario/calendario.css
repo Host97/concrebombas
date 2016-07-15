@@ -1,0 +1,244 @@
+@charset "utf-8";
+		
+		/*
+		css para dar diseño al calendario
+		*/
+		
+		* {margin: 0;padding: 0;font-family:Helvetica, Arial, Tahoma, sans-serif;}
+		body {text-align:center;margin:0;background:#181A1C;padding:30px 0}
+		/*
+		este css se utiliza para los title cuando se pone el cursor
+		*/
+		p#vtip { display: none; position: absolute; padding: 5px; left: 5px; font-size: 0.75em; background-color: #666666; border: 1px solid #666666; -moz-border-radius: 5px; -webkit-border-radius: 5px; z-index: 9999;color:white }
+		/*
+		este css se utiliza para los title cuando se pone el cursor
+		*/
+		p#vtip #vtipArrow { position: absolute; top: -10px; left: 5px }
+		.error{border:1px dotted red;color:red;padding:10px;background-image:url(../../images/Table_Header_Background.jpg);}
+		.ok{border:1px dotted green;color:green;padding:10px;background-image:url(../../images/Table_Header_Background.jpg);}
+		#agenda{margin:10px;width:76%;margin:0 auto}
+		#agenda h1{text-align:left;margin:0;font-size:1.5em;color:#969696}
+		#agenda h2{text-align:left;margin:0;font-size:1,5em;color:#FFFFFF}
+		#agenda table.calendario {margin:10px auto;width:100%;border:1px dotted #ccc;font-size:12px;}
+		.calendario th {border:1px dotted #ccc;font-weight:bold;background:#666;color:white;padding:10px 5px;}
+		.calendario td{padding:10px 5px;text-align:center;border:1px dotted #ccc;width:100px;white-space:pre-line;}
+		.calendario td p{margin:5px;font-size:12px;border:1px solid #ccc;text-align:left;padding:5px}
+		.calendario td.desactivada {background:#dcdcdc;}
+		.calendario td.activa {background:#FFCD00;}
+		.calendario td.anterior {background:#FFEC91;}
+		.calendario td.evento {background:#312c2b;color:white}
+		.calendario td.hoy{font-weight:bold}
+		.calendario form{margin:5px 0 !important}
+		.calendario input.text{border:1px dotted #ccc;background:white;width:200px !important}
+		.calendario input.enviar{border:1px dotted #ccc;background:white;width:70px !important;background:#ccc;margin:0 0 0 10px;}
+		.calendario td img{vertical-align:middle;float:right;border:0;width:16px;height:16px}
+		a{color:#FECE1A;}
+		a:hover {color: #FFFFFF; text-decoration:none;}
+		p{color:#CCC;}
+		/*
+		este css se utiliza para los title cuando se pone el cursor
+		*/
+		.vtip{cursor:pointer;}
+		.verde{font-size:125% !important;font-weight:bold;color:green;}
+		.rojo{font-size:125% !important;font-weight:bold;color:red;}
+		/*
+		3. Sections 
+		***************************************************************************/
+		 .section {
+			padding-bottom: 50px;
+		}
+		.section .container {
+			padding-top:50px;
+			font-family:Arial, Helvetica, sans-serif;
+		}
+		.section .title {
+			text-align: center;
+			padding:10px;
+			margin-bottom: 30px;
+		}
+		.section .title h1 {
+			font-weight: normal;
+			margin-bottom: 20px;
+			padding: 0;
+		}
+		.section .title > p {
+			font-size: 20px;
+			color: #FFF;
+			font-weight: lighter;
+		}
+		.primary-section {
+			background:#181A1C;
+		}
+		.primary-section .triangle {
+			border-top: 40px solid #FECE1A;
+		}
+		.primary-section .title {
+			border-bottom: 1px solid #FFF;
+		}
+		.primary-section, .primary-section .title p, .primary-section h3 {
+			color: #FECE1A;
+		}
+		.primary-section h1 {
+			color:#FFF;
+		}
+		.secondary-section {
+			background:#FECE1A;
+			padding-left:12%;
+			padding-right:12%;
+		}
+		.secondary-section .title {
+			border-bottom: 1px solid #181A1C;
+		}
+		.secondary-section h1, .secondary-section .title p {
+			color: #181A1C;
+		}
+		h3 {
+			font-family:Helvetica, Arial, Tahoma, sans-serif;
+			color: #181A1C;
+			}
+		/* tercera seccion usa imagen bacground */
+		.third-section {
+			padding-bottom: 70px;
+			background: #181A1C url(../images/brand-bg.png) no-repeat center;
+			border-top:6px solid #FECE1A;
+		}
+		.third-section .container {
+			padding-top:20px;
+			position:relative;
+		}
+		.third-section .title {
+			border-bottom: 1px solid #A1AAB7;
+			color: #FECE1A;
+		}
+		.sub-section {
+			margin-top:30px;
+		}
+		.sub-section .title {
+			padding:0;
+		}
+		/*******
+		
+		/*Division triangular*/
+		.triangle {
+    margin: 0 auto;
+    text-align:center;
+    width: 0;
+    height: 0;
+    border-top: 30px solid #181A1C;
+    border-left: 585px outset transparent;
+    border-right: 585px outset transparent;
+    position: relative;
+}
+/*
+4 Footer
+********************************************************************/
+ .footer {
+    background: #181A1C;
+    text-align: center;
+}
+.footer > p {
+    color: #fff;
+    margin:0;
+}
+
+.footer a{
+    color:#FECE1A;
+}
+
+.footer a:hover, .footer a:focus{
+    text-decoration: underline;
+}
+.scrollup {
+    text-align:center;
+    cursor:pointer;
+    vertical-align:middle;
+    width:39px;
+    height:39px;
+    border-radius:5px;
+    font-size:20px;
+    position:fixed;
+    bottom:30px;
+    right:20px;
+	border:1px solid #fff;
+    display:none;
+    background: #FECE1A;
+}
+.scrollup > a {
+    position:relative;
+    top:7px;
+    color:#fff;
+}
+/*
+
+/*
+4 Responsible
+********************************************************************/
+ @media (min-width: 1200px) {
+    .thumbnail .more {
+        margin-left:-41px;
+        width:80px;
+        height:80px;
+        border-radius:40px;
+        line-height: 80px;
+    }
+}
+@media (max-width: 979px) {
+    body {
+        padding-left:0;
+        padding-right:0;
+    }
+    .navbar-fixed-top, .navbar-fixed-bottom {
+        position: fixed;
+    }
+    .navbar .nav > li > a {
+        line-height: 20px;
+        vertical-align: middle;
+    }
+    .section {
+        padding-left:20px;
+        padding-right:20px;
+    }
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .nav-collapse {
+        clear: both;
+    }
+    .nav-collapse .nav {
+        float: none;
+        margin: 0 0 10px;
+    }
+    .nav-collapse .nav > li {
+        float: none;
+    }
+    .nav-collapse, .nav-collapse.collapse {
+        width: 100%;
+        display: inherit;
+    }
+    .thumbnail .more {
+        margin-left:-21px;
+        width:40px;
+        height:40px;
+        border-radius:30px;
+        line-height: 40px;
+    }
+    .thumbnail:hover .more {
+        margin-top:-20px;
+    }
+    .newsletter form {
+        text-align:center;
+    }
+}
+@media (max-width: 767px) {
+    .info-mail {
+        width:90%;
+        padding:15px 0px;
+    }
+    .project-description {
+        padding-left:20px;
+    }
+    .price-column, .testimonial {
+        margin-top:30px;
+    }
+}

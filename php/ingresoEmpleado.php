@@ -6,7 +6,7 @@
         <meta charset=utf-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- InstanceBeginEditable name="doctitle" -->
-        <title>ingreso empleado</title>
+        <title>Ingreso Empleado - Concrebombas</title>
         <!-- InstanceEndEditable -->
         <!-- Load Roboto font -->
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <link rel="stylesheet" type="text/css" href="../css/pluton.css" />
-        <link rel="stylesheet" type="text/css" href="file:///C|/xampp/htdocs/concrebombas/css/table.css"
+        <link rel="stylesheet" type="text/css" href="../css/table.css"
         <!--[if IE 7]>
             <link rel="stylesheet" type="text/css" href="css/pluton-ie7.css" />
         <![endif]-->
@@ -27,7 +27,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/apple-touch-icon-72.png">
         <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57.png">
-        <link rel="shortcut icon" href="../images/ico/favicon.ico.bmp">
+        <link rel="shortcut icon" href="../images/ico/apple-touch-icon-144.png" >
         <!-- InstanceBeginEditable name="head" -->
         <!-- InstanceEndEditable -->
     </head>
@@ -35,7 +35,7 @@
     <body>
         <div class="navbar">
             <div class="navbar-inner">
-                <div class="container"><!-- InstanceBeginEditable name="name" --><a href="#" class="brand"> <img  src="../Imagenes/LOGONAME.png" />
+                <div class="container"><!-- InstanceBeginEditable name="name" --><a href="../index.php" class="brand"> <img  src="../Imagenes/LOGONAME.png"/>
                       <!-- This is website logo -->
                 </a><!-- InstanceEndEditable --><!-- Navigation button, visible on small resolution -->
                     <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -68,7 +68,7 @@
                     <!-- InstanceEndEditable --><!--Simple description for section goes here. -->
                 </div>
                 <!-- InstanceBeginEditable name="EditRegion3" -->
-               <form id="form1" name="form1" method="post" action="ingreso.php">
+               <form id="form1" name="form1" method="post" action="validar_cliente.php">
   <div align="center">
   <table>
    
@@ -78,20 +78,22 @@
                echo $_SESSION['error_login'];
        }
 	?>
-     <p> </p>
-     <h3 align="center"><strong>Usuario:
-      <input type="text" name="Email" id="Email" />
-     </strong></h3>
-     <h3 align="center"><strong>Contraseña:</strong>
-<input type="password" name="Password" id="Password" />
-     </h3>
-     <p>
-      <p align="center">
-      <button class="button button-sp" input type="submit" onClick="this.form.action = 'ingreso1.php'" id="button" value="Ingresar">Ingresar</button>
+     <tr>
+    <td align="right"><strong>Usuario:</strong></td>
+    <td><strong><input type="text" name="Email" id="Email" />
+     </strong></td>
+  </tr>
+  <tr>
+    <td align="right"><strong>Contraseña:</strong></td>
+    <td><strong><input type="password" name="Password" id="Password" /></strong></td>
+  </tr> 
+  </table>
+    <p align="center">
+      <button class="button button-sp" input type="submit" onClick="this.form.action = 'validar_empleado.php'" id="button" value="Ingresar">Ingresar</button>
     </p>
      </p>
   
- </table>
+
   </div>
 
                </form>
@@ -132,63 +134,7 @@
 		<!-- InstanceEndEditable -->
         <!-- Newsletter section end -->
 		<!-- InstanceBeginEditable name="EditRegion11" -->
-    	<!-- Contact section start -->
-        <div id="contact" class="contact">
-            <div class="section secondary-section">
-                <div class="container">
-                  <div class="title">
-                    <h1>Contactenos</h1>
-                    <p>Sigue nuestras novedades en las redes sociales. Póngase en contacto con nosotros si desea más información acerca de nuestros servicios</p>
-                  </div>
-               </div>
-                <div class="container">
-                    <div class="span9 center contact-info">
-                        <p>CALLE 52 # 24 A 35 TORRE 17 OFICINA 452, BOGOTÁ, Colombia</p>
-                        <p class="info-mail">servicios@concrebombasdecolombia.com</p>
-                        <p>+57 1 7690083</p>
-                        <p>321 3139816</p>
-                        <div class="title">
-                            <h3>Siguenos en nuestras redes sociales</h3>
-                        </div>
-                    </div>
-                    <div class="row-fluid centered">
-                        <ul class="social">
-                            <li>
-                                <a href="">
-                                    <span class="icon-facebook-circled"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon-twitter-circled"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon-linkedin-circled"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon-pinterest-circled"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon-dribbble-circled"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon-gplus-circled"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Contact section edn -->
+    	<!-- Contact section start --><!-- Contact section edn -->
         <!-- Footer section start -->
         <div class="footer">
             <p>&copy; PIERRE MAGIQUE Developers<br>

@@ -1,4 +1,4 @@
-<?php require_once('../Connections/conexion.php'); ?>
+<?php require_once('../Connections/conexion.php');session_start(); ?>
 
 <!DOCTYPE html>
 
@@ -8,7 +8,7 @@
         <meta charset=utf-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- InstanceBeginEditable name="doctitle" -->
-        <title>Ingreso Administración</title>
+        <title>Ingreso Administración -Concrebombas </title>
         <!-- InstanceEndEditable -->
         <!-- Load Roboto font -->
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css" />
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <link rel="stylesheet" type="text/css" href="../css/pluton.css" />
-        <link rel="stylesheet" type="text/css" href="file:///C|/xampp/htdocs/concrebombas/css/table.css"
+        <link rel="stylesheet" type="text/css" href="../css/table.css"
         <!--[if IE 7]>
             <link rel="stylesheet" type="text/css" href="css/pluton-ie7.css" />
         <![endif]-->
@@ -29,7 +29,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/apple-touch-icon-72.png">
         <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57.png">
-        <link rel="shortcut icon" href="../images/ico/favicon.ico.bmp">
+        <link rel="shortcut icon" href="../images/ico/apple-touch-icon-144.png" >
         <!-- InstanceBeginEditable name="head" -->
         <!-- InstanceEndEditable -->
     </head>
@@ -70,23 +70,39 @@
                     <!-- InstanceEndEditable --><!--Simple description for section goes here. -->
                 </div>
                 <!-- InstanceBeginEditable name="EditRegion3" -->
-<form id="form1" name="form1"method="post" action="ingresoAmd.php">
-  <table width="86" height="66" align="center">
-   <div align="center">
-   	  <p> </p>
-     <h3 align="center"><strong>Usuario:
-    <input  type="text" align="right" name="Email" id="Email" />
-     </strong></h3>
-     <h3 align="center"><strong>Contraseña:</strong>
-	<input  type="password" align="right" name="Password" id="Password" />
-     </h3>
-     <p>
+<form id="form1" name="form1"method="post" onsubmit="return validar_Captcha()" action="validarAmd.php">
+<div class="text-center" align="center">
+<?php
+       if(isset($_SESSION['error_login'])){
+                       session_destroy();
+               echo $_SESSION['error_login'];
+       }
+	?></div>
+<table align="center">
+   
+   	  
+     <tr>
+    <td align="right"><strong>Usuario:</strong></td>
+    <td><strong><input type="text" name="Email" id="Email" />
+     </strong></td>
+  </tr>
+  <tr>
+    <td align="right"><strong>Contraseña:</strong></td>
+    <td><strong><input type="password" name="Password" id="Password" /></strong></td>
+  </tr> 
+  </table>
+  <h3 align="center">Este es un captcha de seguridad <br>
+   por favor digite el texto indicado</h3>
+     <table width="70%" border="1" align="center">
+     <tr>
+       <th scope="row" width="63%" align="right">Digite el siguiente texto: 9BQ86*</th>
+       <td width="37%"><input type="text" name="captcha" required id="captcha" /></td>  
+     </tr>
+   </table>
       <p align="center">
-      <button class="button button-sp" input type="submit" onClick="this.form.action = 'Administracion.php'" id="button" value="Ingresaramd">Ingresar</button>
-   </div>
+      <button class="button button-sp" input type="submit" onClick="this.form.action = 'validarAmd.php'" id="button" value="Ingresar">Ingresar</button>
+   </p>
  
- <p align="center"> </p>
- </table>
 </form>
         <!-- InstanceEndEditable -->
         <!-- Service section end -->
@@ -95,13 +111,11 @@
 		<!-- InstanceEndEditable -->
         <!-- Portfolio section end -->
 		<!-- InstanceBeginEditable name="EditRegion5" -->
-		
-        <div class="tittle"></div>
 		<!-- InstanceEndEditable -->
         <!-- About us section end -->
         <div class="section secondary-section">
             <div class="triangle"></div>
-            <!-- InstanceBeginEditable name="EditRegion7" -->         <!-- InstanceEndEditable --></div>
+            <!-- InstanceBeginEditable name="EditRegion7" -->         <h3 align="center" class="thumbnail">Gracias por contar con nosotros</h3><h3 align="center" class="thumbnail">CONCREBOMBAS</h3><!-- InstanceEndEditable --></div>
         <!-- Client section start -->
         <!-- Client section start -->
 		<!-- InstanceBeginEditable name="EditRegion8" -->
@@ -149,3 +163,22 @@
         <script type="text/javascript" src="../js/app.js"></script>
     </body>
 <!-- InstanceEnd --></html>
+
+
+<script>
+
+function validar_Captcha()
+{
+       var captcha = document.getElementById("captcha");
+            var msg = "el captcha digitado es incorrecto";
+       
+	   
+	   if(captcha.value != "9BQ86")
+       {
+               alert(msg);
+               return false
+       }
+       
+}
+
+</script>

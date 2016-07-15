@@ -1,4 +1,4 @@
-<?php require_once('../Connections/conexion.php'); ?>
+<?php require_once('../Connections/conexion.php'); include('security.php');?>
 <?php
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -181,6 +181,9 @@ mysql_free_result($editClient);
   <input type="hidden" name="MM_update" value="form1" />
   <input type="hidden" name="Email" value="<?php echo $row_editClient['Email']; ?>" />
 </form>
+<p align="center">
+  <a href="Administracion.php">
+  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >SALIR</button></a></p>
 <p>&nbsp;</p>
 <div class="footer">
   <p align="center">&copy; PIERRE MAGIQUE Developers<br />

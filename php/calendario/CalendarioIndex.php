@@ -1,3 +1,5 @@
+
+
 <?php
 //desarrollo por Hollmann Peñuela
 ini_set('display_errors', 1);
@@ -8,8 +10,8 @@ error_reporting(0);
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-		<meta http-equiv="content-type" content="text/html;charset=utf8" />
-		<title>Alquiler de bombas</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Alquiler de bombas - Concrebombas</title>
 		<meta http-equiv="PRAGMA" content="NO-CACHE" />
 		<meta http-equiv="EXPIRES" content="-1" />
 		<script type="text/javascript" src="jquery.js"></script>
@@ -23,56 +25,99 @@ error_reporting(0);
 		});
 		</script>
         
+		<style>
 		
-        <link rel="shortcut icon" href="../../images/ico/apple-touch-icon-144.png">        
-    <link href="calendario.css" rel="stylesheet" type="text/css">
-    <link href="../../css/button.css" rel="stylesheet" type="text/css">
+		/*
+		css para dar diseño al calendario
+		*/
+		
+		* {margin: 0;padding: 0;font-family:Helvetica, Arial, Tahoma, sans-serif;}
+		html,body{height:100%;width:100%;outline:0;overflow:hidden}
+		body {
+	text-align: center;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: #fff;
+	padding: 30px 0;
+	background-color: #191a1c;
+}
+		/*
+		este css se utiliza para los title cuando se pone el cursor
+		*/
+		p#vtip { display: none; position: absolute; padding: 5px; left: 5px; font-size: 0.75em; background-color: #666666; border: 1px solid #666666; -moz-border-radius: 5px; -webkit-border-radius: 5px; z-index: 9999;color:white }
+		/*
+		este css se utiliza para los title cuando se pone el cursor
+		*/
+		p#vtip #vtipArrow { position: absolute; top: -10px; left: 5px }
+		.error{border:1px dotted red;color:red;padding:10px}
+		.ok{border:1px dotted green;color:green;padding:10px}
+		#agenda{margin:10px;width:980px;margin:0 auto}
+		#agenda h1{text-align:left;margin:0;font-size:1.5em;color:#969696}
+		#agenda h2{text-align:left;margin:0;font-size:1em;color:#312c2b}
+		#agenda table.calendario {margin:10px auto;width:100%;border:1px dotted #ccc;font-size:12px;}
+		.calendario th {border:1px dotted #ccc;font-weight:bold;background:#666;color:white;padding:10px 5px;}
+		.calendario td{padding:10px 5px;text-align:center;border:1px dotted #ccc;width:100px;white-space:pre-line;}
+		.calendario td p{margin:5px;font-size:12px;border:1px solid #ccc;text-align:left;padding:5px}
+		.calendario td.desactivada {background:#dcdcdc;}
+		.calendario td.activa {background:#FFCD00;}
+		.calendario td.anterior {background:#FFEC91;}
+		.calendario td.evento {background:#312c2b;color:white}
+		.calendario td.hoy{font-weight:bold}
+		.calendario form{margin:5px 0 !important}
+		.calendario input.text{border:1px dotted #ccc;background:white;width:200px !important}
+		.calendario input.enviar{border:1px dotted #ccc;background:white;width:70px !important;background:#ccc;margin:0 0 0 10px;}
+		.calendario td img{vertical-align:middle;float:right;border:0;width:16px;height:16px}
+		/*
+		este css se utiliza para los title cuando se pone el cursor
+		*/
+		.vtip{cursor:pointer;}
+		.verde{font-size:125% !important;font-weight:bold;color:green;}
+		.rojo{font-size:125% !important;font-weight:bold;color:red;}
+		</style>
+		<link href="../../css/style.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		body,td,th {
+	font-family: Roboto, sans-serif;
+}
+        </style>
 	</head>
 <body>
 
-
-
-<div align="left">
-  <!-- Title section start -->
-</div>
- <div class="container">
-   <div align="left"><a href="#" class="brand">
-     <img src="../../Imagenes/LOGONAME.png" alt="Icono Empresarial:CONCREBOMBAS+BR" width="210"/></a></div>
- </div>
+<!-- Title section start -->
+ <div class="container"><a href="#" class="brand"><img  src="../../Imagenes/LOGONAME.png" alt="Icono Empresarial:CONCREBOMBAS+BR" width="210" align="left"/></a></div>
                         
 <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
-<div  class="primary-section">
-                    <h1 title="menú de servicios" align="center">Agendamiento</h1>
+<div class="title">
+  <h1 title="menú de servicios" align="center">Agendamiento Nuevo</h1>
                     
                    
-                </div>
+</div>
    <!-- Title section start -->             
    <!-- Explain section start -->
         <div class="section secondary-section">
             <div class="triangle"></div>
             <div class="container centered">
-                <h3 class="large-text">Bienvenidos al sistema de  agendamiento nuevo, recuerde que para a&ntilde;adir un agendamiento debe de hacerlo con m&aacute;s de 24 horas y se cuente con disponibilidad de d&iacute;a.</h3>
+                <p class="large-text">Bienvenidos al sistema de eliminacion de agendamientos, recuerde que para eliminar un agendamiento previo debe de acerlo con mas de 24 horas de antelación</p>
                 
-            </div>
+         </div>
         </div>
-    <!-- Explain section end -->
+  <!-- Explain section end --> 
 
-
-
-
-
-	<div id="agenda">
-    
-		<p>
-		  <?php
+          <div id="agenda">
+       
+          
+          
+          <?php
 		
 		//funcion para mostrar las fechas 
 		
 			include("config.inc.php");
-			include("securityCalendario.php");
 			$mostrar="";
-			$correo= $_SESSION["Email"];
 			function fecha ($valor)
 			{
 				$timer = explode(" ",$valor);
@@ -94,7 +139,7 @@ error_reporting(0);
 				else
 				{
 				
-				$q1="insert into reservacion (Email,fecha,descripcion,activo,relacionar) values ('$correo','".$_POST["fecha"]."','".strip_tags($_POST["titulo"])."','1','1')";
+				$q1="insert into reservacion (fecha,descripcion) values ('".$_POST["fecha"]."','".strip_tags($_POST["titulo"])."')";
 				mysql_select_db($dbname);
 				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>la bomba se a reservado correctamente.</p>";
 				else $mostrar= "<p class='error' id='mensaje'>Se ha producido un error con su reservación.</p>";
@@ -126,14 +171,14 @@ error_reporting(0);
 				}
 				else
 				{
-				$q1="insert into reservacion (Email,fecha,descripcion,activo,relacionar) values ('$correo','".$_POST["fechas"]."','".$_POST["titulos"]."','1','1')";
+				$q1="insert into reservacion (fecha,descripcion) values ('".$_POST["fechas"]."','".$_POST["titulos"]."')";
 				mysql_select_db($dbname);
 				if ($r1=mysql_query($q1)) $mostrar="<p class='ok' id='mensaje'>reserva guardada correctamente.</p>";
 				else $mostrar="<p class='error' id='mensaje'>Se ha producido un error guardando su reserva.</p>";
 				}
 			}
 			
-			//si el mes tiene menos de dos números es decir si es antes de octubre se le agrega un cero antes del numero de mes
+			//si el mes tiene menos de dos numeros es decir si es antes de octubre se le agrega un cero antes del numero de mes
 			
 			if (!isset($_GET["fecha"])) 
 			{
@@ -294,35 +339,29 @@ error_reporting(0);
 			$messiguiente=date("Y-m-d",mktime(0,0,0,$mesactual+1,01,$elanio));
 			echo "<p>&laquo; <a href='".$_SERVER["PHP_SELF"]."?fecha=$mesanterior' alt='Enlace al mes anterior' title='Redirecciona al mes anterior' class='vtip'>Mes Anterior</a> - <a href='".$_SERVER["PHP_SELF"]."?fecha=$messiguiente' alt='Enlace al siguiente mes' title='Redirecciona al siguiente mes' class='vtip'>Mes Siguiente</a> &raquo;</p>";
 			?>
-		  
-		  <br>
-		  <br>
-	       <p align="center">
-  <a href="../clientePage.php">
-  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" onClick=" return validar_Lista()" value="Salir" alt="Este boton nos lleva de nuevo al menu se perderan los datos de la cotizacion" >SALIR</button></a></p>
-		  
-		  <!--</td></tr></table>-->	  </p>
-		<p><br>
-	  </p>
-   </div>
-   
-   <!-- Footer section start -->
-        <div class="footer">
-            <p>&copy; PIERRE MAGIQUE Developers<br>
-            SENA 2016</p>
-        </div>
-        <!-- Footer section end -->
-    
-<script type="text/javascript">
+    <p><br>
+      
+      
+      <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
+   </script>
+      <script type="text/javascript">
 try {
 var pageTracker = _gat._getTracker("UA-266167-20");
 pageTracker._setDomainName(".martiniglesias.eu");
 pageTracker._trackPageview();
 } catch(err) {}</script>
-
+      
+      <!-- Footer section start -->
+    </p>
+    <p align="center">
+  <a href="clientePage.php">
+  <button class="button button-sp" input type="button"  id="Salir" title="Salir de cotizacion" value="Salir" alt="Este botòn nos lleva de nuevo a la pagína personal del cliente" >SALIR</button></a></p>
+        <div class="footer">
+            <p>&copy; PIERRE MAGIQUE Developers<br>
+          SENA 2016</p>
+</div>
+        <!-- Footer section end -->
 </body>
 </html>

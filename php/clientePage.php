@@ -1,39 +1,7 @@
+<?php include('security.php');?>
 <?php require_once('../Connections/conexion.php'); ?>
 <?php
-//initialize the session
-if (!isset($_SESSION)) {
-  session_start();
-}
-
-// ** Logout the current user. **
-$logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
-if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
-  $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
-}
-
-if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
-  //to fully log out a visitor we need to clear the session varialbles
-  $_SESSION['MM_Username'] = NULL;
-  $_SESSION['MM_UserGroup'] = NULL;
-  $_SESSION['PrevUrl'] = NULL;
-  unset($_SESSION['MM_Username']);
-  unset($_SESSION['MM_UserGroup']);
-  unset($_SESSION['PrevUrl']);
-	
-  $logoutGoTo = "../index.php";
-  if ($logoutGoTo) {
-    header("Location: $logoutGoTo");
-    exit;
-  }
-}
-?>
-<?php require_once('../Connections/conexion.php'); ?>
-<?php require_once('../Connections/conexion.php'); ?>
-<?php
-//initialize the session
-if (!isset($_SESSION)) {
-  session_start();
-}
+if ($_SESSION['Permisos']!=1){ session_destroy(); header("Location: ../index.php");}
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
@@ -88,7 +56,7 @@ $totalRows_productos = mysql_num_rows($productos);
     <head>
         <meta charset=utf-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Concrebombas</title>
+        <title>Pagina inicial <?php echo $row_persona['Apelativo']; ?>  <?php echo $row_persona['NombreCliente']; ?>   / Clientes - Concrebombas</title>
         <!-- Load Roboto font -->
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <!-- Load css styles -->
@@ -108,7 +76,7 @@ $totalRows_productos = mysql_num_rows($productos);
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/apple-touch-icon-72.png">
         <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57.png">
-        <link rel="shortcut icon" href="../images/ico/favicon.ico.bmp">
+        <link rel="shortcut icon" href="../images/ico/apple-touch-icon-144.png">
     </head>
     
     <body>
@@ -116,20 +84,20 @@ $totalRows_productos = mysql_num_rows($productos);
             <div class="navbar-inner">
                 <div class="container">
                     <a href="#" class="brand">
-                        <img  src="../Imagenes/LOGONAME.png" />
+                        <img  src="../Imagenes/LOGONAME.png" alt="Icono Empresarial:CONCREBOMBAS+BR"/>
                         <!-- This is website logo --> Wellcome <?php echo $row_persona['Apelativo']; ?> <?php echo $row_persona['NombreCliente']; ?>                    </a>
                     <!-- Navigation button, visible on small resolution -->
                     <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <i class="icon-menu"></i>
+                        <i class="icon-menu" title="menú de Navegación"></i>
                   </button>
                     <!-- Main navigation -->
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav" id="top-navigation">
-                            <li class="active"><a href="<?php echo $logoutAction ?>">Cerrar sesion</a></li>
-                          <li><a href="#service">Compras</a></li>
-                            <li><a href="#about">Alquiler</a></li>
-                            <li><a href="#clients">Cotizacion</a></li>
-                            <li><a href="#contact">Buzon</a></li>
+                            <li class="active" alt="Cierra sesión y vuelve a la página inicial" title="Cerrar y salir"><a href="close_session.php">Cerrar sesion</a></li>
+                          <li title="Material Disponeble para compras"><a href="#purchases">Compras</a></li>
+                            <li title="Calendario de disponibilidad"><a href="#renting">Alquiler</a></li>
+                            <li title="conozca el total de sus compras y compare"><a href="#quotation">Cotizacion</a></li>
+                            <li title="información de la empresa"><a href="#mailbox">Buzon</a></li>
                            
                       </ul>
                     </div>
@@ -142,12 +110,12 @@ $totalRows_productos = mysql_num_rows($productos);
             
         </div>
         <!-- End home section -->
-        <!-- Service section start -->
+        <!-- Menu section start -->
         <div class="section primary-section" id="service">
             <div class="container">
                 <!-- Start title section -->
                 <div class="title">
-                    <h1>Mis Compras</h1>
+                    <h1 title="menú de servicios">Mis Compras</h1>
                     <!-- Section's title goes here -->
                     <p>En esta sección revisa tus compras, o has unas nuevas.</p>
                     <!--Simple description for section goes here. -->
@@ -155,34 +123,34 @@ $totalRows_productos = mysql_num_rows($productos);
                 <div class="row-fluid">
                     <div class="span4">
                         <div class="centered service">
-                            <div class="circle-border zoom-in"> <a href="cotizacion.php"><img class="img-circle" src="../Imagenes/circle1.png" alt="service 1"></a>
+                            <div class="circle-border zoom-in"> <a href="#quotation"><img class="img-circle" src="../Imagenes/circle1.png" alt="icono Cotizacion, redirige a la cotización." title="ir a cotización"></a>
                             </div>
                             <h3>Cemento & Concreto</h3>
-                            <p>Clic aqui para realizar su compra en linea.</p>
+                            <p>Click aqui para realizar su cotización en linea.</p>
                         </div>
                     </div>
                     <div class="span4">
                         <div class="centered service">
-                            <div class="circle-border zoom-in"> <a href="#portfolio"><img class="img-circle" src="../Imagenes/circle2.png" alt="service 2" /></a>
+                            <div class="circle-border zoom-in"> <a href="#purchases"><img class="img-circle" src="../Imagenes/circle2.png" alt="imagen de bombas, esta imagen redirige a la sección de ventas para revisar el material disponible." title="Revisar Productos" /></a>
                             </div>
                             <h3>Bombas & AutoBombas</h3>
-                            <p>Clic aqui para acceder a la galeria de productos y servicios.</p>
+                            <p>Click aqui para acceder a la galeria de productos y servicios.</p>
                         </div>
                     </div>
                     <div class="span4">
                         <div class="centered service">
-                            <div class="circle-border zoom-in"> <a href="#about"><img class="img-circle" src="../Imagenes/circle3.png" alt="service 3"></a>
+                            <div class="circle-border zoom-in"> <a href="#renting"><img class="img-circle" src="../Imagenes/circle3.png" alt="imagen de calendario, redirige a la sección de agendamiento" title=""></a>
                             </div>
                             <h3>Separe & Cotice</h3>
-                            <p>Genere una cotización y si es su precio ideal separe una fecha para adquirir nuestros productos o servicios, Clic en la imagen.</p>
+                            <p>Genere una cotización y si es su precio ideal separe una fecha para adquirir nuestros productos o servicios, Click en la imagen.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Service section end -->
-        <!-- Portfolio section start -->
-        <div class="section secondary-section " id="portfolio">
+        <!-- Menu section end -->
+        <!-- Purchases section start -->
+        <div class="section secondary-section " id="purchases">
             <div class="triangle"></div>
             <div class="container">
                 <div class=" title">
@@ -211,24 +179,24 @@ $totalRows_productos = mysql_num_rows($productos);
             </table>
             </div>
         </div>
-        <!-- Portfolio section end -->
-        <!-- About us section start -->
-        <div class="section primary-section" id="about">
+        <!-- Purchases section end -->
+        <!-- Renting section start -->
+        <div class="section primary-section" id="renting">
             <div class="triangle"></div>
             <div class="container">
                 <div class="title">
-                    <h1>Agendamientos</h1>
+                    <h1 title="Sección para agendar servicios.">Agendamientos</h1>
                     <p>Revisa tus agendamientos, separa tu alquiler, elimina o modifica agendamientos previos.</p>
                 </div>
                 <div class="row-fluid team">
-                  <div class="span4" id="first-person">
-                    <div class="thumbnail"> <a href="login.php"><img src="../Imagenes/agenda.jpg" alt="team 1"></a>
+                  <div class="span4" id="previous">
+                    <div class="thumbnail"> <a href="login.php"><img src="../Imagenes/agenda.jpg" alt="imagen decorativa agenda, busca el icono para ir al formulario de eliminación de agendamiento previo"></a>
                             <h3>Previos</h3>
                             <ul class="social">
                                 
                                 <li>
                                   <a href="calendario/eliminar.php">
-                                        <span  class="icon-calendar"></span>
+                                        <span  class="icon-calendar" alt="al darle click redirige al formulario de eliminación de agendamientos previos" title="Revisa oelimina citas previas"></span>
                                     </a>
                                 </li>
                             </ul>
@@ -240,16 +208,16 @@ $totalRows_productos = mysql_num_rows($productos);
                         <p>&nbsp;</p>
                         <p>&nbsp;</p>
                     </div>
-                    <div class="span4" id="second-person"></div>
-                    <div class="span4" id="third-person">
+                    <div class="span4" id="middle"></div>
+                    <div class="span4" id="new">
                         <div class="thumbnail">
-                            <img src="../Imagenes/agenda2.jpg" alt="team 1">
+                            <img src="../Imagenes/agenda2.jpg" alt="imagen decorativa agenda, busca el icono para ir al formulario de asignación de agendamiento nuevo">
                             <h3>Nuevo</h3>
                             <ul class="social">
                                
                               <li>
-                                    <a href="calendario/calendario.php">
-                                        <span class="icon-calendar-empty"></span>
+                                    <a href="calendario/index.php">
+                                        <span class="icon-calendar-empty" alt="al darle click redirige al formulario de asignación de agendamiento nuevo"></span>
                                     </a>
                               </li>
                             </ul>
@@ -260,59 +228,75 @@ $totalRows_productos = mysql_num_rows($productos);
                       </div>
                   </div>
                 </div>
-                <h3>&nbsp;</h3>
             </div>
         </div>
-        <!-- About us section end -->
+        <!-- Renting section end -->
         <div class="section secondary-section">
             <div class="triangle"></div>
             <div class="container centered">
-                <p class="large-text">No se trata de cultura pop, y no se trata de engañar a la gente ni convencerles de que quieren algo que no necesitan. Averiguamos lo que queremos. Y creo que somos bastante buenos pensando en lo que la gente va a querer también. Eso es por lo que nos pagan. Nosotros sólo queremos hacer grandes productos.</p>
+                <p class="large-text">No se trata de cultura pop, y no se trata de engañar a la gente ni convencerles de que quieren algo que no necesitan. Averiguamos lo que queremos. Y creo que somos bastante buenos pensando en lo que la gente va a querer también. Eso es por lo que nos pagan. Nosotros sólo queremos hacer grandes productos. -Jobs</p>
                 
             </div>
         </div>
-        <!-- Client section start -->
-        <!-- Client section start -->
-        <div id="clients">
+        <!-- Quotation section start -->
+        <div id="quotation">
             <div class="section primary-section">
                 <div class="triangle"></div>
               <div class="container">
                     <div class="title">
-                        <h1>Cotización</h1>
+                        <h1 title="sección de cotización y carrito de consultas">Cotización</h1>
                         <p>revisa los productos y genera una cotización, ajusta presupuesto y toma la mejor decisión.</p>
-                     </div>
+                </div>
                 <div class="contact">
-                      <p align="center" class="price-text">Revisa nuestros precios dando clic en cotización.</p>
-                      <div align="center"><a href="#contact" class="button">Cotización</a></div>
+                      <p align="center" class="price-text">Revisa nuestros precios dando click en cotización.</p>
+                      <p align="center" class="price-text">&nbsp;</p>
+                     
                 </div>
-                </div>
+         <div class="row-fluid team">
+                  <div class="span4" id="previous">
+                    <div class="button-service"> 
+                           <a href="cotizacionBombas.php">
+<input type="" class="button-service" ></a>
+                            
+            </div>
+           </div>
+                    <div class="span4" id="middle"></div>
+                    
+                    <div class="span4" id="new">
+                    
+                        <div class="button-products">
+                           <a href="cotizacionProductos.php">
+<input type="" class="button-products" ></a>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
         </div>
-        
+       </div>
+      </div>
+        <!-- Quotation section end -->
         <!-- Newsletter section start -->
         <div class="section third-section">
           <div class="container newsletter">
             <div class="sub-section">
               <div class="title clearfix">
                 <div class="pull-left">
-                  <h3>Exelencia y calidad del servicio dia a dia</h3>
-                </div>
+                  <h3>Excelencia y calidad del servicio día a día</h3>
               </div>
+             </div>
             </div>
-            <div id="success-subscribe" class="alert alert-success invisible"> <strong>Well done!</strong>You successfully subscribet to our newsletter.</div>
-            <div class="row-fluid">
-              <div class="span7">
-                <div id="err-subscribe" class="error centered">Please provide valid email address.</div>
-              </div>
-            </div>
+           </div>
           </div>
+         </div>
         </div>
-        <!-- Newsletter section end -->
-    <!-- Contact section start -->
-        <div id="contact" class="contact">
+    <!-- Newsletter section end -->
+    <!-- Mailbox section start -->
+        <div id="mailbox" class="contact">
             <div class="section secondary-section">
                 <div class="container">
                     <div class="title">
-                        <h1>Contactenos</h1>
+                        <h1 title="sección de información de contacto">Contactenos</h1>
                         <p>Sigue nuestras novedades en las redes sociales. Póngase en contacto con nosotros si desea más información acerca de nuestros servicios</p>
                     </div>
                 </div>
@@ -330,32 +314,27 @@ $totalRows_productos = mysql_num_rows($productos);
                         <ul class="social">
                             <li>
                                 <a href="">
-                                    <span class="icon-facebook-circled"></span>
+                                    <span class="icon-facebook-circled" alt="Red Social Facebook" title="Facebook"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="icon-twitter-circled"></span>
+                                    <span class="icon-twitter-circled" alt="Red Social Twitter" title="Twitter"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="icon-linkedin-circled"></span>
+                                    <span class="icon-linkedin-circled" alt="Red Social Linkedin" title="Linkedin"></span>
                                 </a>
                             </li>
                             <li>
                                 <a href="">
-                                    <span class="icon-user"></span>
+                                    <span class="icon-skype-circled" alt="Red Social skype" title="Skype"></span>
                                 </a>
-                            </li>
+                            </li>                          
                             <li>
                                 <a href="">
-                                    <span class="icon-dribbble-circled"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="icon-gplus-circled"></span>
+                                    <span class="icon-gplus-circled" alt="Red Social Google-plus" title="Google+"></span>
                                 </a>
                             </li>
                         </ul>
@@ -363,7 +342,7 @@ $totalRows_productos = mysql_num_rows($productos);
                 </div>
             </div>
         </div>
-        <!-- Contact section edn -->
+        <!-- Mailbox section edn -->
         <!-- Footer section start -->
         <div class="footer">
             <p>&copy; PIERRE MAGIQUE Developers<br>
