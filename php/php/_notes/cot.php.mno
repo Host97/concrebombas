@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<info>
-	<infoitem key="UD_bomb" value="name:idBombas;datatype:int,name:Titulo;datatype:string,name:ReferenciaBomba;datatype:string,name:Nombre;datatype:string,name:Motor;datatype:string,name:MetrosBombeables;datatype:string,name:Descripcion;datatype:string,name:ImagenBomba;datatype:string,name:PrecioBomba;datatype:real,name:relacionar;datatype:string,name:activo;datatype:int" />
-	<infoitem key="UD_producto" value="name:idproducto;datatype:int,name:tituloProducto;datatype:string,name:NombreProducto;datatype:string,name:PrecioProducto;datatype:real,name:ReferenciaProducto;datatype:string,name:DescripcionProducto;datatype:string,name:imagen;datatype:string,name:relacionar;datatype:string,name:activo;datatype:int" />
-</info>
